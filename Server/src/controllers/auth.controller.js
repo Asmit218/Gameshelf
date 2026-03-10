@@ -1,4 +1,5 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import cloudinary from "../utils/cloudinary.js";
 import User from "../models/user.js";
 import { generateToken } from "../utils/generateToken.js";
 
@@ -87,17 +88,17 @@ export const logout = (req, res) => {
 };
 
 export const updateProfilePhoto = async (req, res) => {
-  const { profilePhoto } = req.body;
-  const userId = req.user._id;
-
   try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const { profilePhoto } = req.body;
+    if (!profilePhoto) {
+      return res.status(400).json({ message: "Profile photo is required" });
     }
 
-    user.profilePhoto = profilePhoto;
-    await user.save();
+    const userId = req.user._id;
+
+    const userResponse = cloudinary.uploader.upload(profilePhoto);
+
+    const userUpdate = await User.findByIdAndUpdate(userId, { profilePhoto: userResponse.secure_url }, { new: true });
 
     res.status(200).json({ message: "Profile photo updated successfully" });
   } catch (error) {
