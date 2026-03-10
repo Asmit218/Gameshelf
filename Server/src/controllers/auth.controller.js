@@ -85,3 +85,23 @@ export const logout = (req, res) => {
   res.clearCookie("jwt");
   res.status(200).json({ message: "Logged out successfully" });
 };
+
+export const updateProfilePhoto = async (req, res) => {
+  const { profilePhoto } = req.body;
+  const userId = req.user._id;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.profilePhoto = profilePhoto;
+    await user.save();
+
+    res.status(200).json({ message: "Profile photo updated successfully" });
+  } catch (error) {
+    console.log("Error in updateProfilePhoto Controller:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
