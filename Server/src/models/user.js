@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
         default: "",
     },
     matches: {
-        type: Number,
-        default: 0,
+        type: Array,
+        default: [],
     },
     matchesWon: {
         type: Number,
@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-});
+},{timestamps:true}
+);
 
 export default mongoose.model("User", userSchema);
