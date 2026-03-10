@@ -13,7 +13,31 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    profilePhoto: {
+        type: String,
+        default: "",
+    },
+    matches: {
+        type: Number,
+        default: 0,
+    },
+    matchesWon: {
+        type: Number,
+        default: 0,
+    },
+    matchesLost: {
+        type: Number,
+        default: 0,
+    },
+    friends: {
+        type: Array,
+        default: [],
+    },
+    bgPhoto: {
+        type: String,
+        default: "",
+    },
 });
 
 export default mongoose.model("User", userSchema);

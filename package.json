@@ -1,0 +1,22 @@
+{
+  "name": "gameshelf",
+  "version": "1.0.0",
+  "description": "GAMESHELF is an online platform where players compete in logic-based **mind games** against friends or random opponents. The goal of the platform is to create a competitive environment where players can test their reasoning and strategy skills.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix Server && npm install --prefix Client && npm run build --prefix Client",
+    "start": "npm run start --prefix Server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Asmit218/Gameshelf.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Asmit218/Gameshelf/issues"
+  },
+  "homepage": "https://github.com/Asmit218/Gameshelf#readme"
+}
