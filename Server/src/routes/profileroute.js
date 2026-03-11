@@ -1,9 +1,12 @@
 import express from "express";
-import { matchHistory } from "../controllers/profilecontroller.js";
+import { gameCount, gameWinCount, matchHistory, totalWinLoss } from "../controllers/profilecontroller.js";
 import { protectRoute } from "../middleware/protectRoute.js";
 
-const router = express.Router();
+const profileRouter = express.Router();
 
-router.get("/history/:userId",protectRoute,matchHistory);
+profileRouter.get("/history/:userId",protectRoute,matchHistory);
+profileRouter.get("/gamewin/:userId",protectRoute,gameWinCount);
+profileRouter.get("/gamecount/:userId",protectRoute,gameCount);
+profileRouter.get("/totalwinloss/:userId",protectRoute,totalWinLoss);
 
-export default router;
+export default profileRouter;

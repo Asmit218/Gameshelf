@@ -3,8 +3,8 @@ import "dotenv/config";
 import path from "path";
 import cookieParser from "cookie-parser";
 
-import authRouter from "./routes/auth.route.js";
-import profileroute from "./routes/profileroute.js";
+import authRouter from "./routes/authroute.js";
+import profileRouter from "./routes/profileroute.js";
 
 import connectDB from "./utils/db.js";
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
-app.use("/api/match", profileroute)
+app.use("/api/match", profileRouter);
 
 
 if(process.env.NODE_ENV === "production"){
