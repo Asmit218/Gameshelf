@@ -47,7 +47,7 @@ function App() {
 
 
   return (
-    <div className="finisher-header h-screen w-screen">
+    <div className="finisher-header">
       <Routes>
         <Route path="/" element={<Homepage />} />
       </Routes>
