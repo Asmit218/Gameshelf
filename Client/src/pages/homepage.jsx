@@ -7,7 +7,7 @@ export default function Homepage() {
       <Navbar />
 
       <div className="flex justify-center items-center flex-col">
-        <motion.div className="max-w-3xl mt-80 text-center"
+        <motion.div className="max-w-3xl mt-[25vh] text-center"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -18,12 +18,12 @@ export default function Homepage() {
           <span className="text-white font-black text-9xl">GAME</span>
           <span className="text-yellow-500 font-black text-9xl">SHELF</span>
           <p className="text-center text-gray-600 text-lg">
-            A platform to track your gaming achievements and compete with friends on the leaderboard. Explore your gaming history, earn badges, and share your progress with the community. Start your gaming journey today!
+            A platform to challenge your mind through strategic games and compete with players around the world. Track your match history, earn BIOS, climb the leaderboard, and prove your skills. Begin your journey on GameShelf.
           </p>
         </motion.div>
 
       </div>
-        <div className="mt-50 flex flex-col gap-10">
+        <div className="mt-60 flex flex-col gap-10">
           <p className="text-3xl font-bold">Explore</p>
           <div className="card border border-base-content/20 w-80 shadow-xl rounded-3xl">
             <div className="card-image">
