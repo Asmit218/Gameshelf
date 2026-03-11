@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const matchSchema = new mongoose.Schema({
-    matchId:{
-        type: String,
-        required : true
-    },
     game:{
         type: String,
         required : true
