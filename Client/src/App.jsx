@@ -25,7 +25,7 @@ function App() {
           }
         },
         "colors": {
-          "background": "#001e29",
+          "background": "{base-100}",
           "particles": [
             "#fbfcca",
             "#d7f3fe",

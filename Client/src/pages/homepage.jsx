@@ -1,7 +1,9 @@
 import Navbar from "../components/Navbar";
+import Card from "../components/card";
 import { motion } from "framer-motion";
 
 export default function Homepage() {
+
   return (
     <div className="mx-20 my-5">
       <Navbar />
@@ -10,9 +12,9 @@ export default function Homepage() {
         <motion.div className="max-w-3xl mt-[25vh] text-center"
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 className="text-lg text-gray-300 mt-20">
+          <h1 className="text-xl mt-20">
             Welcome to
           </h1>
           <span className="text-white font-black text-9xl">GAME</span>
@@ -23,17 +25,18 @@ export default function Homepage() {
         </motion.div>
 
       </div>
-        <div className="mt-60 flex flex-col gap-10">
-          <p className="text-3xl font-bold">Explore</p>
-          <div className="card border border-base-content/20 w-80 shadow-xl rounded-3xl">
-            <div className="card-image">
-              <img className="w-full h-full object-cover rounded-3xl p-4" src="picture.jpg" alt="Game Image" />
-            </div>
-            <div className="card-body">
-              <h2 className="text-xl font-bold mt-2 text-gray-50">Cyberpunk 2077</h2>
-              <p className="text-yellow-500">Difficulty: Hard</p>
-              <p className="text-gray-500">Asmit is playing this game</p>
-            </div>
+        <div className="mt-60 flex flex-col gap-5">
+          <p className="text-3xl font-bold">Explore Games</p>
+          <div className="carousel w-full space-x-2 p-4">
+          <Card photo={"zero.jpg"} title="Cyberpunk 2077" difficulty="Hard" player="Asmit" />
+          <Card photo={"download.jpg"} title="The Witcher 3" difficulty="Medium" player="Alex" />
+          </div>
+        </div>
+        <div className="mt-20 flex flex-col gap-5">
+          <p className="text-3xl font-bold">Upcoming Games</p>
+          <div className="carousel w-full space-x-2 p-4">
+          <Card photo={"zero.jpg"} title="Cyberpunk 2077" difficulty="Hard" player="Asmit" />
+          <Card photo={"download.jpg"} title="The Witcher 3" difficulty="Medium" player="Alex" />
           </div>
         </div>
     </div>
