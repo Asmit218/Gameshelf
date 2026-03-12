@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
+    playerId:{
+        type:String,
+        required:true
+    },
     fullName: {
         type: String,
         required: true,
@@ -18,17 +22,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    matches: {
-        type: Array,
-        default: [],
+    matchesTotal: {
+        type: Number,
+        default: 0,
     },
     matchesWon: {
         type: Number,
         default: 0,
     },
-    matchesLost: {
+    xp: {
         type: Number,
-        default: 0,
+        default: 0
     },
     friends: {
         type: Array,

@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import cloudinary from "../utils/cloudinary.js";
 import User from "../models/user.js";
 import { generateToken } from "../utils/generateToken.js";
+import { generatePlayerId } from "../utils/uid.js";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -31,6 +32,7 @@ export const signup = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
+      playerId: generatePlayerId()
     });
 
     if (newUser) {

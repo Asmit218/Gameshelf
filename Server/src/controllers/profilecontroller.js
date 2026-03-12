@@ -1,90 +1,124 @@
 import Match from "../models/match.js";
+import User from "../models/user.js";
 
-export const matchHistory = async (req, res) => {
+//It will return the total games played , total wins and total loss of a player
+
+export const totalWinLoss = async (req, res) => {
     try {
-        const userId = req.params.userId;
-        const matches = await Match.find({
-            players: userId
-        }).sort({ createdAt: -1 });
-        const history = matches.map(match => {
-            const opponent = Match.player.find(p => p !== userId);
-            const result = Match.winner === userId ? "Win" : "Loss";
-            return {
-                game: Match.game,
-                bios: Match.bios,
-                opponent: opponent,
-                result: result,
-                date: Match.createdAt
-            }
-        })
-        res.status(200).json(history);
+       const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"user not found"});
+        }
+        const losses = user.matchesTotal - user.matchesWon;
+        res.status(200).json({
+            wins: user.matchesWon,
+            losses: losses,
+            total: user.matchesTotal
+        });
     } catch (error) {
-        res.status(500).json({ message: error })
+        res.status(500).json({ message: error.message })
     }
-};
+}
 
-export const gameWinCount = async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const wins = await Match.aggregate([
-        {
-            $match: { 
-                winner: userId 
-            }
-        },
-        {
-            $group: {
-                _id: "$game",
-                wins: { $sum: 1 }
-            }
-        }]);
-        res.status(200).json(wins);
-    } catch (error) {
-        res.status(500).json({ message: error })
-    }
-};
+//It was return how many times each game was played by the player 
 
-export const gameCount = async (req,res) => {
+export const gameCount = async (req, res) => {
     try {
-        const userId = req.params.userId;
+        const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"user not found"});
+        }
         const count = await Match.aggregate([
             {
                 $match: {
-                    player: userId
+                    player: playerId
                 }
             },
             {
                 $group: {
                     _id: "$game",
-                    count: {$sum:1}
+                    count: { $sum: 1 }
                 }
             }
         ]);
         res.status(200).json(count);
     } catch (error) {
-        res.status(500).json({message:error})
+        res.status(500).json({ message: error.message })
     }
 };
 
-export const totalWinLoss = async(req,res) => {
+//It will return how many wins the player has in each game
+
+export const gameWinCount = async (req, res) => {
     try {
-        const userId = req.params.userId;
-        const total = await Match.countDocuments({
-            players: userId
-        });
-        const wins = await Match.countDocuments({
-            winners : userId
-        });
-        const loss = await Match.countDocuments({
-            player: userId,
-            winner: {$ne: userId}
-        });
-        res.status(200).json({
-            totalMatches,
-            wins,
-            loss
-        });
+        const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"user not found"});
+        }
+        const wins = await Match.aggregate([
+            {
+                $match: {
+                    winner: playerId
+                }
+            },
+            {
+                $group: {
+                    _id: "$game",
+                    wins: { $sum: 1 }
+                }
+            }]);
+        res.status(200).json(wins);
     } catch (error) {
-        res.status(500).json({message:error})
+        res.status(500).json({ message: error.message })
+    }
+};
+
+//For the matches played section in profile.
+
+export const matchHistory = async (req, res) => {
+    try {
+        const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"user not found"});
+        }
+        const matches = await Match.find({
+            player: playerId
+        }).sort({ createdAt: -1 });
+        const history = matches.map(match => {
+            const opponent = match.player.find(p => p !== playerId);
+            const result = match.winner === playerId ? "Win" : "Loss";
+            return {
+                game: match.game,
+                bios: match.bios,
+                opponent: opponent,
+                result: result,
+                date: match.createdAt
+            }
+        })
+        res.status(200).json(history);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+};
+
+export const levelxp = async (req, res) => {
+    try {
+        const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"user not found"});
+        }
+        const level = Math.floor(user.xp / 100);
+        const remainder = user.xp % 100;
+        res.status(200).json({
+            level : level,
+            xp : remainder
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
     }
 }
