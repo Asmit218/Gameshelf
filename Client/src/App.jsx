@@ -1,10 +1,12 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Homepage from './pages/homepage';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
 
+  const [textTheme, setTextTheme] = useState("");
+  
   useEffect(() => {
 
     const media = window.matchMedia('(prefers-color-scheme: dark)');
@@ -12,23 +14,25 @@ function App() {
     const applyTheme = () => {
       let light, lighta, lightb, lightc;
       if (media.matches) {
-        light = "#000000";
+        light = "#1b1816";
         lighta = "#fbfcca";
         lightb = "#d7f3fe";
         lightc = "#ffd0a7";
+        setTextTheme("text-white");
       } else {
-        light = "#ffffff";
-        lighta = "#4f4f4e";
-        lightb = "#3e494d";
-        lightc = "#967e6a";
+        light = "#f7f5f3";
+        lighta = "#760097";
+        lightb = "#626262";
+        lightc = "#458228";
+        setTextTheme("text-black");
       }
 
       if (window.FinisherHeader) {
         new window.FinisherHeader({
           "count": 100,
           "size": {
-            "min": 1,
-            "max": 3,
+            "min": 2,
+            "max": 4,
             "pulse": 0
           },
           "speed": {
@@ -62,15 +66,15 @@ function App() {
       }
     }
     applyTheme();
-    media.addEventListener("change",applyTheme);
-    return () => media.removeEventListener("change",applyTheme);
+    media.addEventListener("change", applyTheme);
+    return () => media.removeEventListener("change", applyTheme);
   }, []);
 
 
   return (
     <div className="finisher-header">
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Homepage textTheme={textTheme} />} />
       </Routes>
     </div>
   )

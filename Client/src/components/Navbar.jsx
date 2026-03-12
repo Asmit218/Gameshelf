@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
 import ProfileDropdown from "./profiledropdown";
 
-export default function Navbar() {
+export default function Navbar({ textTheme }) {
     return (
         <nav className="fixed z-50 left-1/2 -translate-x-1/2 w-[95%] rounded-full border border-gray-300/20 shadow-lg backdrop-blur-xs">
             <div className="max-w-7xl mx-auto py-3 flex justify-between items-center">
-                <a href="/" className="text-white text-3xl font-extrabold">
+                <a href="/" className={`${textTheme} text-3xl font-extrabold`}>
                     GAME<span className="text-yellow-500">SHELF</span>
                 </a>
 
