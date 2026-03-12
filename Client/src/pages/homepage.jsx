@@ -9,9 +9,9 @@ export default function Homepage({ textTheme }) {
       <div className="mx-25 my-5">
         <Navbar textTheme={textTheme} />
 
-        <div className="flex justify-center items-center flex-col">
+        <div className="flex flex-col items-center justify-center min-h-[80vh]">
           <motion.div
-            className="max-w-3xl mt-[25vh] text-center"
+            className="max-w-3xl text-center"
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}

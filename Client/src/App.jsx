@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [textTheme, setTextTheme] = useState("");
-  
+
   useEffect(() => {
 
     const media = window.matchMedia('(prefers-color-scheme: dark)');
@@ -72,11 +72,14 @@ function App() {
 
 
   return (
-    <div className="finisher-header">
-      <Routes>
-        <Route path="/" element={<Homepage textTheme={textTheme} />} />
-      </Routes>
-    </div>
+    <>
+      <div className="finisher-header -z-10 h-screen inset-0 fixed"></div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Homepage textTheme={textTheme} />} />
+        </Routes>
+      </div>
+    </>
   )
 }
 
