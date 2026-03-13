@@ -1,6 +1,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Homepage from './pages/homepage';
+import Profilepage from './pages/profilepage';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import { useEffect, useState } from "react";
@@ -39,11 +40,11 @@ function App() {
           },
           "speed": {
             "x": {
-              "min": 0,
-              "max": 0.4
+              "min": 0.4,
+              "max": 0.6
             },
             "y": {
-              "min": 0,
+              "min": 0.4,
               "max": 0.6
             }
           },
@@ -79,6 +80,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Homepage textTheme={textTheme} />} />
+          <Route path="/profile" element={<Profilepage textTheme={textTheme}/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
