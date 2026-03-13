@@ -9,7 +9,7 @@ export default function Homepage({ textTheme }) {
       <div className="mx-25 my-5">
         <Navbar textTheme={textTheme} />
 
-        <div className="flex flex-col items-center justify-center min-h-[80vh]">
+        <div className="flex flex-col items-center justify-center min-h-[90vh]">
           <motion.div
             className="max-w-3xl text-center"
             initial={{ opacity: 0, y: 60 }}
