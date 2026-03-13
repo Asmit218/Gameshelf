@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+import profilepage from "../pages/profilepage";
+
 export default function ProfileDropdown() {
+    const navigate = useNavigate
     return (
         <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="avatar cursor-pointer">
@@ -10,7 +14,7 @@ export default function ProfileDropdown() {
             <div className="card dropdown-content bg-base-200 z-1 mt-3 w-60 shadow">
                 <div className="card-body">
 
-                    <a href="/profile" className="border-b border-base-content/20 text-center p-2">Profile</a>
+                    <a onClick={()=>navigate('/profile')} href="/profile" className="border-b border-base-content/20 text-center p-2">Profile</a>
                     <a href="/biosStore" className="border-b border-base-content/20 text-center p-2">BiOS : 1000</a>
                     <a href="/settings" className="border-b border-base-content/20 text-center p-2">Settings</a>
                     <a href="/room" className="border-b border-base-content/20 text-center p-2">Rooms</a>
