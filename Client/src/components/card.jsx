@@ -1,7 +1,7 @@
 export default function Card({ photo, title, difficulty, player }) {
     return (
         <div className="carousel-item card border border-base-content/20 w-60 shadow-md rounded-3xl bg-base-200 cursor-pointer
-            transition-transform duration-200 ease-in-out hover:scale-103">
+            transition-transform duration-200 ease-in-out hover:scale-102">
             <div className="w-full aspect-square overflow-hidden flex items-center justify-center rounded-2xl">
                 <img className="object-cover" src={photo} alt="Game Image" />
             </div>
