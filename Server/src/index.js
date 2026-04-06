@@ -7,6 +7,7 @@ import authRouter from "./routes/authroute.js";
 import profileRouter from "./routes/profileroute.js";
 
 import connectDB from "./utils/db.js";
+import gameRouter from "./routes/gameRoute.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/match", profileRouter);
+app.use("/api/games", gameRouter);
 
 
 if(process.env.NODE_ENV === "production"){
