@@ -7,7 +7,7 @@ export default function ProfileDropdown() {
         <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="avatar cursor-pointer">
                 <div className="w-10 rounded-full">
-                    <img src="jack-o-lantern.png" alt="profile" />
+                    <img src="22.png" alt="profile" />
                 </div>
             </div>
 
