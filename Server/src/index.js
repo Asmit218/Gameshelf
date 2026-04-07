@@ -7,7 +7,7 @@ import connectDB from "./utils/db.js";
 
 import authRouter from "./routes/authroute.js";
 import profileRouter from "./routes/profileroute.js";
-import gameRouter from "./routes/gameRoute.js";
+import gameRouter from "./routes/gameroute.js";
 import roomRouter from "./routes/roomRoute.js";
 
 const app = express();
