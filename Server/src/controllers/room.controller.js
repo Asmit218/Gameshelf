@@ -15,6 +15,24 @@ export const showRoom = async (req, res) => {
     }
 }
 
+export const showMyRoom = async(req, res) => {
+    try {
+        const playerId = req.customData.playerId;
+
+        const room = await Room.find({playerId : playerId}).lean();
+
+        if(!room.length){
+            return res.status(404).json({message : "No Rooms Found."});
+        }
+
+        res.status(200).json(room);
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+        console.log("Error in showMyRoom in Room controller");
+    }
+}
+
 export const createRoom = async(req, res) => {
     try {
         const {roomid, gameName, playersCount, joinCode} = req.body;
@@ -27,12 +45,19 @@ export const createRoom = async(req, res) => {
             return res.status(400).json({message : "Players Cannt be 0 or below 0."});
         }
 
-        if(joinCode.length > 4 || joinCode.length < 0){
+        if(joinCode.toString().length > 4 || joinCode.toString().length < 0){
             return res.status(400).json({message : "Joining Code Must be of 4 digits."});
+        }
+
+        const anyRoom = await Room.findOne({roomid : roomid});
+
+        if(anyRoom){
+            return res.status(400).json({message : "A room with this code is already exists."});
         }
 
         const newRoom = new Room({
             roomid,
+            playerId:req.customData.playerId,
             gameName,
             createdby:req.customData.fullName,
             playersCount,

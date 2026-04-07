@@ -3,6 +3,11 @@ import mongoose from "mongoose";
 const roomSchema = new mongoose.Schema({
     roomid:{
         type:String,
+        required:true,
+        unique:true
+    },
+    playerId:{
+        type:String,
         required:true
     },
     createdby:{
