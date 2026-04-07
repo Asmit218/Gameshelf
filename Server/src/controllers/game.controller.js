@@ -2,7 +2,11 @@ import Game from '../models/game.js';
 
 export const showGames = async(req, res ) => {
     try {
-        const game = await Game.find();
+        const game = await Game.find().lean();
+
+        if(!game.length){
+            return res.status(400).json({message: "No Game Found."});
+        }
         res.status(200).json(game);
     } catch (error) {
         res.status(500).json({message: error.message});

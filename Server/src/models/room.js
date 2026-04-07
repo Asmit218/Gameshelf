@@ -9,12 +9,21 @@ const roomSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    gameName:{
+        type:String,
+        required:true,
+    },
+    playersCount:{
+        type:Number,
+        required:true,
+    },
     players:{
         type:Array,
         default:[]
     },
-    password:{
-        type:String,
+    joinCode:{
+        type:Number,
+        required:true,
     }
 },{timestamps:true});
 
