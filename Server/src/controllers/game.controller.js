@@ -96,7 +96,7 @@ export const updateGames = async (req, res) => {
     }
 
     const updatedGame = await Game.findByIdAndUpdate(gameId, req.body, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     });
 
