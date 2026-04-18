@@ -1,10 +1,15 @@
 import express from "express";
-import {getGames, showGames, createGames} from "../controllers/game.controller.js";
+
+import { dummyMiddleware } from "../middleware/dummyMiddleware.js";
+
+import {getGame, showGames, createGames, updateGames, deleteGames} from "../controllers/game.controller.js";
 
 const router = express.Router();
 
-router.post("/create",protectRoute, createGames);
-router.get("/get/:_id",protectRoute, getGames);
-router.get("/show",protectRoute, showGames);
+router.post("/create",dummyMiddleware, createGames);
+router.get("/get/:_id",dummyMiddleware, getGame);
+router.get("/show",dummyMiddleware, showGames);
+router.put("/update/:_id",dummyMiddleware, updateGames);
+router.delete("/delete/:_id",dummyMiddleware, deleteGames);
 
 export default router;

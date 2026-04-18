@@ -3,11 +3,12 @@ import "dotenv/config";
 import path from "path";
 import cookieParser from "cookie-parser";
 
+import connectDB from "./utils/db.js";
+
 import authRouter from "./routes/authroute.js";
 import profileRouter from "./routes/profileroute.js";
-
-import connectDB from "./utils/db.js";
-import gameRouter from "./routes/gameRoute.js";
+import gameRouter from "./routes/gameroute.js";
+import roomRouter from "./routes/roomRoute.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/match", profileRouter);
 app.use("/api/games", gameRouter);
+app.use("/api/rooms",roomRouter);
 
 
 if(process.env.NODE_ENV === "production"){
