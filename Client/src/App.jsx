@@ -10,6 +10,7 @@ function App() {
 
   const [textTheme, setTextTheme] = useState("");
 
+
   useEffect(() => {
 
     const media = window.matchMedia('(prefers-color-scheme: dark)');
@@ -29,6 +30,7 @@ function App() {
         lightc = "#458228";
         setTextTheme("text-black");
       }
+      
 
       if (window.FinisherHeader) {
         new window.FinisherHeader({
@@ -70,7 +72,8 @@ function App() {
     }
     applyTheme();
     media.addEventListener("change", applyTheme);
-    return () => media.removeEventListener("change", applyTheme);
+    return () => {media.removeEventListener("change", applyTheme);
+    }
   }, []);
 
 
