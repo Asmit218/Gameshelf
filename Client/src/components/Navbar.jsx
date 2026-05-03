@@ -17,7 +17,7 @@ export default function Navbar({ textTheme }) {
                             Leaderboard
                         </a>
                         <a
-                            href="/leaderboard"
+                            href="/room"
                         >
                             Rooms
                         </a>
