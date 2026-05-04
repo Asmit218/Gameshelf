@@ -1,25 +1,57 @@
+import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
+import {useNavigate} from "react-router-dom";
 
 export default function Login() {
+
+  const[email,setEmail] = useState("");
+  const[password,setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+
+  const handleLogin = async() => {
+    try {
+      const res = await fetch("http://localhost:7000/api/auth/login",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({email,password}),
+      });
+      const data = await res.json();
+      if (!res.ok){
+        console.error(data.message);
+        return;
+      }
+      navigate("/");
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="flex flex-row h-screen justify-center items-center">
       <div className="flex flex-col items-center justify-center flex-1">
         <div className="bg-base-100/80 backdrop-blur-lg rounded-3xl p-8 shadow-lg w-full max-w-md">
           <h1 className="text-4xl font-bold">Login Page</h1>
           <div className="flex flex-col items-center justify-center mt-8">
-            <form className="w-full max-w-sm" action={'/'}>
+            <form className="w-full max-w-sm" action={'/'} onSubmit={(e)=>{e.preventDefault();handleLogin();}}>
               <div className="mb-4">
                 <label
                   className="block text-base-content text-md font-bold mb-2"
-                  htmlFor="username"
+                  htmlFor="email"
                 >
-                  Username
+                  Email
                 </label>
                 <input
                   className="border border-base-content/20 rounded-full py-3 px-4 w-full focus:outline-none"
-                  id="username"
-                  type="text"
-                  placeholder="Username"
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -34,6 +66,8 @@ export default function Login() {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
                   <p className="text-sm mt-4">
                     Forget password?{" "}

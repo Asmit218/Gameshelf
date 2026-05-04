@@ -12,7 +12,9 @@ export default function Leaderboardpage({ textTheme }) {
     const fetchLb = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`http://localhost:7000/api/leaderboard?type=${type}&limit=20`);
+            const res = await fetch(`http://localhost:7000/api/leaderboard?type=${type}&limit=20`,{
+                credentials: "include",
+            });
             const result = await res.json();
             setData(result.leaderboard || []);
             setCurrentUser(result.currentUser || null);
