@@ -5,10 +5,10 @@ import { generateToken } from "../utils/generateToken.js";
 import { generatePlayerId } from "../utils/uid.js";
 
 export const signup = async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { userName, email, password } = req.body;
 
   try {
-    if (!fullName || !email || !password) {
+    if (!userName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -29,7 +29,7 @@ export const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-      fullName,
+      userName,
       email,
       password: hashedPassword,
       playerId: generatePlayerId()
@@ -37,11 +37,11 @@ export const signup = async (req, res) => {
 
     if (newUser) {
       const savedUser = await newUser.save();
-      generateToken(savedUser, res);
+      generateToken(savedUser._id, res);
 
       res.status(201).json({
         _id: savedUser._id,
-        fullName: savedUser.fullName,
+        userName: savedUser.userName,
         email: savedUser.email,
         profilePic: savedUser.profilePic,
       });
@@ -98,7 +98,7 @@ export const updateProfilePhoto = async (req, res) => {
 
     const userId = req.user._id;
 
-    const userResponse = cloudinary.uploader.upload(profilePhoto);
+    const userResponse = await cloudinary.uploader.upload(profilePhoto);
 
     const userUpdate = await User.findByIdAndUpdate(userId, { profilePhoto: userResponse.secure_url }, { new: true });
 

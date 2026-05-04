@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    fullName: {
+    userName: {
         type: String,
         required: true,
     },
@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     matchesWon: {
         type: Number,
         default: 0,
+    },
+    bios:{
+        type:Number,
+        default: 1000
     },
     xp: {
         type: Number,

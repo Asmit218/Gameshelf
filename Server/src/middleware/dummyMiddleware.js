@@ -1,9 +1,7 @@
 export const dummyMiddleware = (req, res, next) => {
-    // Adding this data for Room Controller ... Later has to be deleted.
-    req.customData =  {
-      fullName : "Asmit",
-      playerId : "11222",
+    req.user =  {
+      userId : "hello123"
 
     };
     next();
-}
+};
