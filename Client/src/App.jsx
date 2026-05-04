@@ -2,6 +2,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Homepage from './pages/homepage';
 import Profilepage from './pages/profilepage';
+import Roompage from './pages/room';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Leaderboardpage from './pages/leaderboardpage';
@@ -85,6 +86,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage textTheme={textTheme} />} />
           <Route path="/profile" element={<Profilepage textTheme={textTheme}/>}/>
+          <Route path="/room" element={<Roompage textTheme={textTheme}/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/leaderboard" element={<Leaderboardpage textTheme={textTheme}/>} />
