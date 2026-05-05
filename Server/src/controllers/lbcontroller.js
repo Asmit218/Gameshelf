@@ -3,7 +3,7 @@ import User from "../models/user.js";
 export const getLeaderboard = async (req, res) => {
     try {
         const { type = "wins", limit = 20 } = req.query;
-        const currentUser = await User.findOne();
+        const currentUser = await User.findOne({playerId: req.user.playerId});
 
         if (!currentUser) {
             return res.status(404).json({message: "User not found"});

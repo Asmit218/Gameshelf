@@ -44,18 +44,18 @@ export default function Leaderboardpage({ textTheme }) {
                 <div>
                     
                     <div>
-                        <div className="grid grid-cols-5 p-3 font-bold text-center">
+                        <div className="grid grid-cols-5 p-3 font-bold text-center text-2xl">
                             <div>Rank</div>
                             <div>Profile</div>
                             <div>Username</div>
                             {type === "wins" ? (<div>Wins</div>) : (<div>Bios</div>)}
                             <div>Most Played Game</div>
                         </div>
-                        {loading && <div className="mt-5 text-center">Loading...</div>}
+                        {loading && <div className="flex justify-center"><span className="loading loading-dots loading-xl" /></div>}
                         {data.map((player, index) => (
                             <div
                                 key={player.playerId}
-                                className="grid grid-cols-5 p-3 text-center border-b border-base-300"
+                                className="grid grid-cols-5 p-5 text-center text-xl font-medium"
                             >
                                 <div>{player.rank}</div>
                                 <div>{player.playerId}</div>
@@ -66,7 +66,7 @@ export default function Leaderboardpage({ textTheme }) {
                         ))}
 
                     </div>
-                    <div className="mt-10 grid grid-cols-5 p-3 text-center items-center bg-base-100 border border-base-content/40">
+                    <div className="mt-10 grid grid-cols-5 p-5 text-xl font-semibold rounded-full text-center items-center bg-base-200 border-3 border-base-content/40">
                         <div>{currentUser?.rank}</div>
                         <div>{currentUser?.playerId}</div>
                         <div>{currentUser?.userName}</div>
