@@ -12,7 +12,7 @@ export default function Leaderboardpage({ textTheme }) {
     const fetchLb = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`http://localhost:7000/api/leaderboard?type=${type}&limit=20`,{
+            const res = await fetch(`http://localhost:7000/api/leaderboard?type=${type}&limit=20`, {
                 credentials: "include",
             });
             const result = await res.json();
@@ -27,7 +27,7 @@ export default function Leaderboardpage({ textTheme }) {
 
     useEffect(() => {
         fetchLb();
-    },[type]);
+    }, [type]);
 
     return (
         <div>
@@ -41,39 +41,45 @@ export default function Leaderboardpage({ textTheme }) {
                         <input type="radio" name="my_tabs_1" onClick={() => setType("bios")} className="w-19 tab checked:bg-primary checked:text-base-100" aria-label="Bios" />
                     </div>
                 </div>
-                <div>
-                    
-                    <div>
-                        <div className="grid grid-cols-5 p-3 font-bold text-center text-2xl">
-                            <div>Rank</div>
-                            <div>Profile</div>
-                            <div>Username</div>
-                            {type === "wins" ? (<div>Wins</div>) : (<div>Bios</div>)}
-                            <div>Most Played Game</div>
-                        </div>
-                        {loading && <div className="flex justify-center"><span className="loading loading-dots loading-xl" /></div>}
-                        {data.map((player, index) => (
-                            <div
-                                key={player.playerId}
-                                className="grid grid-cols-5 p-5 text-center text-xl font-medium"
-                            >
-                                <div>{player.rank}</div>
-                                <div>{player.playerId}</div>
-                                <div>{player.userName}</div>
-                                {type === "wins" ? (<div>{player.wins}</div>) : (<div>{player.bios}</div>)}
-                                <div>{player.xp}</div>
-                            </div>
-                        ))}
 
-                    </div>
-                    <div className="mt-10 grid grid-cols-5 p-5 text-xl font-semibold rounded-full text-center items-center bg-base-200 border-3 border-base-content/40">
-                        <div>{currentUser?.rank}</div>
-                        <div>{currentUser?.playerId}</div>
-                        <div>{currentUser?.userName}</div>
-                        {type === "wins" ? (<div>{currentUser?.wins}</div>) : (<div>{currentUser?.bios}</div>)}
-                        <div>{currentUser?.xp}</div>
-                    </div>
-                </div>
+                {loading && <div className="flex justify-center"><span className="loading loading-dots loading-xl" /></div>}            
+                {!loading &&currentUser ?
+                    <div>
+                        <div>
+                            <div className="grid grid-cols-5 p-3 font-bold text-center text-2xl">
+                                <div>Rank</div>
+                                <div>Profile</div>
+                                <div>Username</div>
+                                {type === "wins" ? (<div>Wins</div>) : (<div>Bios</div>)}
+                                <div>Most Played Game</div>
+                            </div>
+                            {data.map((player, index) => (
+                                <div
+                                    key={player.playerId}
+                                    className="grid grid-cols-5 p-5 text-center text-xl font-medium"
+                                >
+                                    <div>{player.rank}</div>
+                                    <div>{player.playerId}</div>
+                                    <div>{player.userName}</div>
+                                    {type === "wins" ? (<div>{player.wins}</div>) : (<div>{player.bios}</div>)}
+                                    <div>{player.xp}</div>
+                                </div>
+                            ))}
+
+                        </div>
+                        <div className="mt-10 grid grid-cols-5 p-5 text-xl font-semibold rounded-full text-center items-center bg-base-200 border-3 border-base-content/40">
+                            <div>{currentUser?.rank}</div>
+                            <div>{currentUser?.playerId}</div>
+                            <div>{currentUser?.userName}</div>
+                            {type === "wins" ? (<div>{currentUser?.wins}</div>) : (<div>{currentUser?.bios}</div>)}
+                            <div>{currentUser?.xp}</div>
+                        </div>
+                    </div> :
+
+                    <div className="flex justify-center items-center h-[20vh] text-4xl font-semibold gap-4">Please Login to Continue this Service<a href="/login" className="text-primary">Login</a></div>
+
+                }
+
             </div>
             <div>
                 <Footer />
