@@ -11,6 +11,31 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [textTheme, setTextTheme] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch("http://localhost:7000/api/auth/check", {
+          credentials: "include",
+        });
+        if (!res.ok) {
+          setUser(null);
+        } else {
+          const data = await res.json();
+          setUser(data);
+        }
+
+      } catch (error) {
+        setUser(null);
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkAuth();
+  },[]);
 
 
   useEffect(() => {
@@ -32,7 +57,7 @@ function App() {
         lightc = "#458228";
         setTextTheme("text-black");
       }
-      
+
 
       if (window.FinisherHeader) {
         new window.FinisherHeader({
@@ -74,7 +99,8 @@ function App() {
     }
     applyTheme();
     media.addEventListener("change", applyTheme);
-    return () => {media.removeEventListener("change", applyTheme);
+    return () => {
+      media.removeEventListener("change", applyTheme);
     }
   }, []);
 
@@ -84,12 +110,12 @@ function App() {
       <div className="finisher-header -z-10 h-screen inset-0 fixed"></div>
       <div>
         <Routes>
-          <Route path="/" element={<Homepage textTheme={textTheme} />} />
-          <Route path="/profile" element={<Profilepage textTheme={textTheme}/>}/>
-          <Route path="/room" element={<Roompage textTheme={textTheme}/>}/>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/leaderboard" element={<Leaderboardpage textTheme={textTheme}/>} />
+          <Route path="/" element={<Homepage user={user} textTheme={textTheme} />} />
+          <Route path="/profile" element={<Profilepage user={user} textTheme={textTheme} />} />
+          <Route path="/room" element={<Roompage user={user} textTheme={textTheme} />} />
+          <Route path="/login" element={<Login  setUser={setUser}  />} />
+          <Route path="/signup" element={<Signup  setUser={setUser} />} />
+          <Route path="/leaderboard" element={<Leaderboardpage user={user} textTheme={textTheme} />} />
         </Routes>
       </div>
     </>

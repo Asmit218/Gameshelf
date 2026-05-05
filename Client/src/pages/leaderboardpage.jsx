@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import Footer from "../components/footer"
 import Navbar from "../components/Navbar"
 
-export default function Leaderboardpage({ textTheme }) {
+export default function Leaderboardpage({ textTheme,user }) {
 
     const [type, setType] = useState("wins");
     const [data, setData] = useState([]);
@@ -32,7 +32,7 @@ export default function Leaderboardpage({ textTheme }) {
     return (
         <div>
             <div className="mx-25 my-5 mb-30">
-                <div><Navbar textTheme={textTheme} /></div>
+                <div><Navbar user={user} textTheme={textTheme} /></div>
 
                 <div className="pt-30 mx-15">
                     <div className="text-3xl font-bold">Leaderboard</div>

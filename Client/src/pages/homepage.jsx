@@ -3,11 +3,12 @@ import Card from "../components/card";
 import Footer from "../components/footer";
 import { motion } from "framer-motion";
 
-export default function Homepage({ textTheme }) {
+
+export default function Homepage({ textTheme ,user}) {
   return (
     <>
       <div className="mx-25 my-5">
-        <Navbar textTheme={textTheme} />
+        <Navbar  textTheme={textTheme} user={user} />
 
         <div className="flex flex-col items-center justify-center min-h-[90vh]">
           <motion.div

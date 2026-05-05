@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
 import {useNavigate} from "react-router-dom";
 
-export default function Login() {
+export default function Login({setUser}) {
 
   const[email,setEmail] = useState("");
   const[password,setPassword] = useState("");
@@ -25,7 +25,15 @@ export default function Login() {
         console.error(data.message);
         return;
       }
-      navigate("/");
+      if(res.ok){
+        const check = await fetch("http://localhost:7000/api/auth/check",{
+          credentials:"include",
+        });
+        const userData = await check.json();
+        setUser(userData);
+        navigate("/");
+      }
+      
     } catch (error) {
       console.error(error)
     }

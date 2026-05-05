@@ -2,7 +2,7 @@ import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
 import {useNavigate} from "react-router-dom";
 
-export default function Signup() {
+export default function Signup({setUser}) {
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,9 +29,15 @@ export default function Signup() {
         console.error(data.message);
         return;
       }
-      console.log("Signup success", data)
-
-      navigate("/");
+      if(res.ok){
+        const check = await fetch("http://localhost:7000/api/auth/check",{
+          credentials:"include",
+        });
+        const userData = await check.json();
+        setUser(userData);
+        console.log("Signup success", data)
+        navigate("/")
+      }
     } catch (error) {
       console.error(error);
       

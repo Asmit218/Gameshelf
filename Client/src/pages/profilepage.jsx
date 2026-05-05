@@ -7,12 +7,12 @@ import Chartbar2 from '../components/ProfileChart/Chartbar2'
 import Chartpie1 from '../components/ProfileChart/Chartpie1'
 import Matchtable from '../components/ProfileChart/Matchtable'
 
-const profilepage = (textTheme) => {
+const profilepage = ({textTheme,user}) => {
     return (
         <div className=''>
             <img className='h-64 w-full object-cover' src='banner.jpg'></img>
             <div className="mx-25 my-5 absolute top-0 left-0">
-                <Navbar textTheme={textTheme} />
+                <Navbar user={user} textTheme={textTheme} />
             </div>
             <div className=' px-10 flex flex-wrap'>
                 <div className='flex items-end mx-auto'>

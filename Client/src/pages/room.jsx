@@ -3,11 +3,11 @@ import FriendLog from "../components/FriendLog"
 import Navbar from "../components/Navbar"
 import RoomLog from "../components/RoomLog"
 
-export default function Room({ textTheme }) {
+export default function Room({ textTheme,user }) {
     return (
         <>
             <div className="mx-25 my-5">
-                <Navbar textTheme={textTheme} />
+                <Navbar user={user} textTheme={textTheme} />
                 <div className="flex pt-30">
                     <div className="flex-1 px-5 py-3">
                         <div className="mb-10">
