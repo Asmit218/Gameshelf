@@ -14,6 +14,7 @@ authRouter.get("/check", protectRoute, (req, res) => {
     res.set("Cache-Control", "no-store");
     res.json({
         _id: req.user._id,
+        playerId: req.user.playerId,
         userName: req.user.userName,
     });
 });
