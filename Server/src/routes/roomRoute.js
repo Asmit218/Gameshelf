@@ -1,12 +1,13 @@
 import express from 'express';
-import { createRoom, deleteRoom, showRoom, showMyRoom } from '../controllers/room.controller.js';
-import {dummyMiddleware} from "../middleware/dummyMiddleware.js";
+import { createRoom, deleteRoom, showRoom, showMyRoom, joinRoom } from '../controllers/room.controller.js';
+import {protectRoute} from "../middleware/protectRoute.js";
 
 const roomRouter = express.Router();
 
-roomRouter.get("/show" ,dummyMiddleware, showRoom);
-roomRouter.get("/myroom" ,dummyMiddleware, showMyRoom);
-roomRouter.post("/create",dummyMiddleware, createRoom);
-roomRouter.delete("/delete/:id",dummyMiddleware, deleteRoom);
+roomRouter.get("/show" ,protectRoute, showRoom);
+roomRouter.get("/myroom" ,protectRoute, showMyRoom);
+roomRouter.post("/create",protectRoute, createRoom);
+roomRouter.post("/join/:roomid",protectRoute, joinRoom);
+roomRouter.delete("/delete/:id",protectRoute, deleteRoom);
 
 export default roomRouter;
