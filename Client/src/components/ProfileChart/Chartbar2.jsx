@@ -51,12 +51,12 @@ export default function Chartbar2() {
                 bottom: 5,
             }}
         >
-            <XAxis dataKey="name" stroke='white' />
-            <YAxis width="auto" stroke='white'/>
-            <Bar dataKey="Win" fill="#303030" barSize={40} stroke="#C2C2C2" activeBar={{ fill: '#2D3E2A', stroke: '#FFC800' }} radius={[10, 10, 0, 0]} >
+            <XAxis dataKey="name" stroke='gray' />
+            <YAxis width="auto" stroke='gray'/>
+            <Bar dataKey="Win"className='fill-base-100 stroke-secondary-content hover:stroke-success stroke-2  ' barSize={40} radius={[10, 10, 0, 0]} >
                 <LabelList content='pv' position='insideTop' />
             </Bar>
-            <Bar dataKey="Lost" fill="#303030" barSize={40} stroke="#C2C2C2" activeBar={{ fill: '#3E2A2A', stroke: '#FFC800' }} radius={[10, 10, 0, 0]} >
+            <Bar dataKey="Lost" className='fill-base-100 stroke-secondary-content hover:stroke-error stroke-2' barSize={40} radius={[10, 10, 0, 0]} >
                 <LabelList content='pv' position='insideTop' />
             </Bar>
         </BarChart>

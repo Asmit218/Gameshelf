@@ -7,81 +7,130 @@ import Chartbar2 from '../components/ProfileChart/Chartbar2'
 import Chartpie1 from '../components/ProfileChart/Chartpie1'
 import Matchtable from '../components/ProfileChart/Matchtable'
 
-const profilepage = ({textTheme,user}) => {
+const profilepage = ({ textTheme, user }) => {
     return (
         <div className=''>
             <img className='h-64 w-full object-cover' src='banner.jpg'></img>
             <div className="mx-25 my-5 absolute top-0 left-0">
                 <Navbar user={user} textTheme={textTheme} />
             </div>
-            <div className=' px-10 flex flex-wrap'>
-                <div className='flex items-end mx-auto'>
-                    <div className='flex flex-col w-60 items-center ml-10 mr-10'>
-                        <img className='absolute top-40 z-10 h-35 w-35' src='22.png'></img>
-                        <div className='text-[#ffffff] text-[27px] mt-15'>Asmit Srivastava</div>
-                        <div className='text-[#C2C2C2] text-sm'>Uid : 1109734213</div>
-                    </div>
 
-                    <div className='mb-10 mt-5 ml-10 mr-10'>
-                        <Chartlevel />
-                    </div>
+            <div className='flex flex-col items-center mx-auto'>
+                <div className='flex flex-col w-60 items-center ml-10 mr-10'>
+                    <img className='absolute top-40 z-10 h-35 w-35' src='22.png'></img>
+                    <div className=' text-[27px] mt-15'>Asmit Srivastava</div>
+                    <div className=' text-sm'>Uid : 1109734213</div>
                 </div>
 
-                <div className='flex flex-wrap mx-auto mt-5 gap-10'>
-                    <div className='h-23 w-25 bg-[#1E1E1E] border border-[#FFC800] rounded-2xl flex flex-col justify-end'>
-                        <p className='text-[25px] font-bold text-center mb-2'>486</p>
-                        <p className='text-[16px] font-bold text-center mb-2.5'>Matches</p>
+                <div className='mb-10 mt-5 ml-10 mr-10'>
+                    <Chartlevel />
+                </div>
+            </div>
+
+            <div className='mt-5 mb-20 font-bold flex justify-center gap-20'>
+                <div className='flex gap-2 items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
+                    <div className='flex flex-col items-center'>
+                        <div className='text-3xl'>248</div>
+                        <div className='text-[15px]'>MATCHES</div>
                     </div>
-                    <div className='h-23 w-25 bg-[#1E1E1E] border border-[#FFC800] rounded-2xl flex flex-col justify-end'>
-                        <p className='text-[25px] font-bold text-center mb-2'>235</p>
-                        <p className='text-[16px] font-bold text-center mb-2.5'>Wins</p>
-                    </div><div className='h-23 w-25 bg-[#1E1E1E] border border-[#FFC800] rounded-2xl flex flex-col justify-end'>
-                        <p className='text-[25px] font-bold text-center mb-2'>141</p>
-                        <p className='text-[16px] font-bold text-center mb-2.5'>Lose</p>
-                    </div><div className='h-23 w-25 bg-[#1E1E1E] border border-[#FFC800] rounded-2xl flex flex-col justify-end'>
-                        <p className='text-[25px] font-bold text-center mb-2'>1.5:1</p>
-                        <p className='text-[16px] font-bold text-center mb-2.5'>WL Ratio</p>
+                </div>
+                <div className='flex gap-2 items-center '>
+                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
+                    <div className='flex flex-col items-center'>
+                        <div className='text-3xl'>158</div>
+                        <div className='text-[15px]'>WINS</div>
+                    </div>
+                </div>
+                <div className='flex gap-2 items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
+                    <div className='flex flex-col items-center'>
+                        <div className='text-3xl'>90</div>
+                        <div className='text-[15px]'>LOSS</div>
+                    </div>
+                </div>
+                <div className='flex gap-2 items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
+                    <div className='flex flex-col items-center'>
+                        <div className='text-3xl'>248</div>
+                        <div className='text-[15px]'>W:L RATIO</div>
                     </div>
                 </div>
             </div>
-            <div className='flex items-center justify-center gap-20 mt-5 mb-10 ml-15 mr-15'>
-                <div>
-                    <div className='flex flex-col gap-4'>
-                        <div className='h-15 w-78 bg-[#1E1E1E] border border-[#C2C2C2] rounded-2xl flex items-center justify-between p-3 gap-5'>
-                            <p className='text-[25px] font-bold text-center'>Bios :</p>
-                            <p className='text-[25px] font-bold text-center'>4890</p>
+
+            <div className='mt-5 mb-20 font-bold flex flex-wrap justify-center gap-20'>
+                <div className='flex flex-col gap-10'>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>BIOS WON</div>
+                            <div className='text-4xl'>248</div>
                         </div>
-                        <div className='h-15 w-78 bg-[#1E1E1E] border border-[#C2C2C2] rounded-2xl flex items-center  justify-between p-3  gap-5'>
-                            <p className='text-[25px] font-bold text-center '>Rank:</p>
-                            <p className='text-[25px] font-bold text-center '>4890</p>
-                        </div>
-                        <div className='h-15 w-78 bg-[#1E1E1E] border border-[#C2C2C2] rounded-2xl flex items-center  justify-between p-3  gap-5'>
-                            <p className='text-[25px] font-bold text-center '>Best Rank:</p>
-                            <p className='text-[25px] font-bold text-center '>4890</p>
-                        </div>
-                        <div className='h-15 w-78 bg-[#1E1E1E] border border-[#C2C2C2] rounded-2xl flex items-center justify-between p-3  gap-5'>
-                            <p className='text-[25px] font-bold text-center '>Biggest Streak :</p>
-                            <p className='text-[25px] font-bold text-center '>4890</p>
+                    </div>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>BIOS LOST</div>
+                            <div className='text-4xl'>248</div>
                         </div>
                     </div>
                 </div>
-                <div className='border-[#C2C2C2] bg-[#1E1E1E] rounded-2xl border max-w-300 w-full'>
-                    <div className=' pt-3 text-center text-xl text-[#C2C2C2] font-bold'>Games Played</div>
+                <div className='flex flex-col gap-10'>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2  border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>BEST STREAK</div>
+                            <div className='text-4xl'>248</div>
+                        </div>
+                    </div>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2  border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>BEST RANK</div>
+                            <div className='text-4xl'>248</div>
+                        </div>
+                    </div>
+                </div>
+                <div className='flex flex-col gap-10'>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>BEST RANK</div>
+                            <div className='text-4xl'>248</div>
+                        </div>
+                    </div>
+                    <div className='flex gap-2 items-center'>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
+                        <div className='flex flex-col items-center'>
+                            <div className='text-xl'>FRIENDS</div>
+                            <div className='text-4xl'>248</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='mx-auto mb-20 border-secondary-content/60 bg-base-300 rounded-2xl border max-w-240'>
+                    <div className=' pt-3 text-center text-xl font-bold'>GAMES PLAYED</div>
                     <div className=''><Chartbar1 /></div>
-                </div>
             </div>
-            <div className='flex items-center justify-center gap-18 mt-5 mb-10 mx-15'>
-                <div className='w-full max-w-80 bg-[#1E1E1E] border border-[#C2C2C2] rounded-2xl'>
-                    <div className='pt-3 text-center text-xl text-[#C2C2C2] font-bold'>Games Played </div>
+
+            <div className='mx-auto mb-20 border-secondary-content/60 bg-base-300 rounded-2xl border max-w-240'>
+                    <div className=' pt-3 text-center text-xl font-bold'>WIN LOSS COUNT</div>
+                    <div className=''><Chartbar2 /></div>
+            </div>
+
+            <div className='mb-20 flex justify-center gap-20'>
+                <div className='w-80 p-3 border-secondary-content/60 bg-base-300 rounded-2xl border' >
                     <Chartpie1 />
                 </div>
-                <div className='bg-[#1E1E1E] rounded-2xl border max-w-300 w-full'>
-                    <div className='pt-3 text-center text-xl text-[#C2C2C2] font-bold'>Win and Loss Count</div>
-                    <Chartbar2 />
+                <div className='w-80 p-3 border-secondary-content/60 bg-base-300 rounded-2xl border' >
+                    <Chartpie1 />
                 </div>
             </div>
-            <div className=' mb-15 max-w-400 mx-15 2xl:mx-auto'>
-                <Matchtable/>
+
+            
+            <div className=' mb-15 max-w-350 mx-15 2xl:max-w-350 2xl:mx-auto'>
+                <Matchtable />
             </div>
             <div>
                 <Footer />

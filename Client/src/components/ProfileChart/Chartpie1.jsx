@@ -15,16 +15,16 @@ export default function Chartpie1() {
   );
   return (
     <div>
-      <PieChart responsive style={{maxWidth:'320px',
-        maxHeight:'37vh',
+      <PieChart responsive style={{maxWidth:'420px',
+        maxHeight:'30vh',
         width: '95%',
         margin: 'auto',
-        minHeight: '100px',
-        fontSize:'16px', flex: '1 1 200px' , aspectRatio: 1.15}}>
+        minHeight: '250px',
+        fontSize:'18px', flex: '1 1 200px' , aspectRatio: 1.15}}>
         <MyPie />
-        <Legend layout="vertical"
-  align="right"
-  verticalAlign="middle"/>
+        <Legend layout="horizontal"
+  align="center"
+  verticalAlign="bottom"/>
       </PieChart>
 
     </div>
