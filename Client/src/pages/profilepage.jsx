@@ -6,19 +6,20 @@ import Chartbar1 from '../components/ProfileChart/Chartbar1'
 import Chartbar2 from '../components/ProfileChart/Chartbar2'
 import Chartpie1 from '../components/ProfileChart/Chartpie1'
 import Matchtable from '../components/ProfileChart/Matchtable'
+import { Award, Coins, Crown, Medal, Percent, ShieldMinus, Swords, TrendingDown, Trophy, User } from 'lucide-react'
 
 const profilepage = ({ textTheme, user }) => {
     return (
         <div className=''>
-            <img className='h-64 w-full object-cover' src='banner.jpg'></img>
+            <img className='h-75 w-full object-cover' src='banner.jpg'></img>
             <div className="mx-25 my-5 absolute top-0 left-0">
                 <Navbar user={user} textTheme={textTheme} />
             </div>
 
             <div className='flex flex-col items-center mx-auto'>
                 <div className='flex flex-col w-60 items-center ml-10 mr-10'>
-                    <img className='absolute top-40 z-10 h-35 w-35' src='22.png'></img>
-                    <div className=' text-[27px] mt-15'>Asmit Srivastava</div>
+                    <img className='absolute top-50 z-10 h-40 w-40' src='22.png'></img>
+                    <div className=' text-3xl mt-15'>Asmit Srivastava</div>
                     <div className=' text-sm'>Uid : 1109734213</div>
                 </div>
 
@@ -29,81 +30,81 @@ const profilepage = ({ textTheme, user }) => {
 
             <div className='mt-5 mb-20 font-bold flex justify-center gap-20'>
                 <div className='flex gap-2 items-center'>
-                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
-                    <div className='flex flex-col items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-base-200 rounded-3xl flex justify-center items-center'><Swords /></div>
+                    <div className='flex flex-col items-left'>
                         <div className='text-3xl'>248</div>
-                        <div className='text-[15px]'>MATCHES</div>
+                        <div className='text-xl font-light'>Matches</div>
                     </div>
                 </div>
                 <div className='flex gap-2 items-center '>
-                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
-                    <div className='flex flex-col items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-base-300 rounded-3xl flex justify-center items-center'><Trophy /></div>
+                    <div className='flex flex-col items-left'>
                         <div className='text-3xl'>158</div>
-                        <div className='text-[15px]'>WINS</div>
+                        <div className='text-xl font-light'>Wins</div>
                     </div>
                 </div>
                 <div className='flex gap-2 items-center'>
-                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
-                    <div className='flex flex-col items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-base-300 rounded-3xl flex justify-center items-center'><ShieldMinus /></div>
+                    <div className='flex flex-col items-left'>
                         <div className='text-3xl'>90</div>
-                        <div className='text-[15px]'>LOSS</div>
+                        <div className='text-xl font-light'>Loss</div>
                     </div>
                 </div>
                 <div className='flex gap-2 items-center'>
-                    <div className='h-17 w-17 border-2 border-primary bg-black rounded-3xl'></div>
-                    <div className='flex flex-col items-center'>
+                    <div className='h-17 w-17 border-2 border-primary bg-base-300 rounded-3xl flex justify-center items-center'><Percent /></div>
+                    <div className='flex flex-col items-left'>
                         <div className='text-3xl'>248</div>
-                        <div className='text-[15px]'>W:L RATIO</div>
+                        <div className='text-xl font-light'>W:L Ratio</div>
                     </div>
                 </div>
             </div>
 
-            <div className='mt-5 mb-20 font-bold flex flex-wrap justify-center gap-20'>
+            <div className='mt-5 mb-20 font-bold flex flex-wrap justify-center gap-30'>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>BIOS WON</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Medal /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>BIOS Won</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>BIOS LOST</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><TrendingDown /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>BIOS Lost</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                 </div>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2  border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>BEST STREAK</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Coins /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>Best Streak</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2  border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>BEST RANK</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Crown /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>Best Ranks</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                 </div>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>BEST RANK</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Award /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>Achievements</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-black rounded-4xl'></div>
-                        <div className='flex flex-col items-center'>
-                            <div className='text-xl'>FRIENDS</div>
-                            <div className='text-4xl'>248</div>
+                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><User /></div>
+                        <div className='flex flex-col items-left'>
+                            <div className='text-2xl font-light'>Friends</div>
+                            <div className='text-3xl'>248</div>
                         </div>
                     </div>
                 </div>
