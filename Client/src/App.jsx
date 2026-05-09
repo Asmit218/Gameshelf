@@ -5,6 +5,7 @@ import Profilepage from './pages/profilepage';
 import Roompage from './pages/room';
 import Login from './pages/login';
 import Signup from './pages/signup';
+import Setting from './pages/setting';
 import Leaderboardpage from './pages/leaderboardpage';
 import { useEffect, useState } from "react";
 
@@ -115,6 +116,7 @@ function App() {
           <Route path="/room" element={<Roompage user={user} textTheme={textTheme} />} />
           <Route path="/login" element={<Login  setUser={setUser}  />} />
           <Route path="/signup" element={<Signup  setUser={setUser} />} />
+          <Route path="/settings" element={<Setting textTheme={textTheme} />} />
           <Route path="/leaderboard" element={<Leaderboardpage user={user} textTheme={textTheme} />} />
         </Routes>
       </div>
