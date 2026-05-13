@@ -10,7 +10,7 @@ const Create = () => {
   const handleCreate = async () => {
     try {
       const response = await api.post(
-        "create",
+        "/rooms/create",
         {
           gameName,
           joinCode,

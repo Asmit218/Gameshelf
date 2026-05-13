@@ -6,7 +6,9 @@ import Roompage from './pages/room';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Leaderboardpage from './pages/leaderboardpage';
+import Unravel from './pages/games/unravel';
 import { useEffect, useState } from "react";
+import api from './utils/axios';
 
 function App() {
 
@@ -17,15 +19,8 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:7000/api/auth/check", {
-          credentials: "include",
-        });
-        if (!res.ok) {
-          setUser(null);
-        } else {
-          const data = await res.json();
-          setUser(data);
-        }
+        const res = await api.get("/auth/check");
+        setUser(res.data);
 
       } catch (error) {
         setUser(null);
@@ -116,6 +111,7 @@ function App() {
           <Route path="/login" element={<Login  setUser={setUser}  />} />
           <Route path="/signup" element={<Signup  setUser={setUser} />} />
           <Route path="/leaderboard" element={<Leaderboardpage user={user} textTheme={textTheme} />} />
+          <Route path="/unravel" element={<Unravel user={user} textTheme={textTheme} />} />
         </Routes>
       </div>
     </>

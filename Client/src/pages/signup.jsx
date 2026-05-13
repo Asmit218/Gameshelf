@@ -1,46 +1,35 @@
 import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/axios";
 
-export default function Signup({setUser}) {
+export default function Signup({ setUser }) {
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password , setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
-      const res = await fetch("http://localhost:7000/api/auth/signup",{
-        method: "POST",
-        headers: {
-          "Content-Type" : "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
+      const res = await api.post("/auth/signup",
+        {
           userName,
           email,
           password,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        console.error(data.message);
-        return;
-      }
-      if(res.ok){
-        const check = await fetch("http://localhost:7000/api/auth/check",{
-          credentials:"include",
-        });
-        const userData = await check.json();
-        setUser(userData);
-        console.log("Signup success", data)
-        navigate("/")
-      }
+        }
+      );
+
+
+      const check = await api.get("auth/check");
+      setUser(check.data);
+      console.log("Signup success")
+      navigate("/")
+
     } catch (error) {
       console.error(error);
-      
+
     }
   }
 
@@ -54,7 +43,7 @@ export default function Signup({setUser}) {
         <div className="bg-base-100/80 backdrop-blur-lg rounded-3xl p-8 shadow-lg w-full max-w-md">
           <h1 className="text-4xl font-bold">Sign Up Page</h1>
           <div className="flex flex-col items-center justify-center mt-8">
-            <form className="w-full max-w-sm" action={'/'} onSubmit={(e)=>{e.preventDefault();handleSignup();}}>
+            <form className="w-full max-w-sm" action={'/'} onSubmit={(e) => { e.preventDefault(); handleSignup(); }}>
               <div className="mb-4">
                 <label
                   className="block text-base-content text-md font-bold mb-2"
@@ -68,7 +57,7 @@ export default function Signup({setUser}) {
                   type="text"
                   placeholder="Username"
                   value={userName}
-                  onChange={(e)=>setUserName(e.target.value)}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -84,7 +73,7 @@ export default function Signup({setUser}) {
                   type="email"
                   placeholder="Email"
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -100,7 +89,7 @@ export default function Signup({setUser}) {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex items-center justify-center">

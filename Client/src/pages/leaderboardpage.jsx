@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import Footer from "../components/footer"
 import Navbar from "../components/Navbar"
+import api from "../utils/axios";
 
-export default function Leaderboardpage({ textTheme,user }) {
+export default function Leaderboardpage({ textTheme, user }) {
 
     const [type, setType] = useState("wins");
     const [data, setData] = useState([]);
@@ -12,18 +13,24 @@ export default function Leaderboardpage({ textTheme,user }) {
     const fetchLb = async () => {
         try {
             setLoading(true);
-            const res = await fetch(`http://localhost:7000/api/leaderboard?type=${type}&limit=20`, {
-                credentials: "include",
-            });
-            const result = await res.json();
-            setData(result.leaderboard || []);
-            setCurrentUser(result.currentUser || null);
+            const res = await api.get("/leaderboard",
+                {
+                    params: {
+                        type,
+                        limit: 20,
+                    },
+                    withCredentials: true,
+                }
+            );
+            setData(res.data.leaderboard || []);
+            setCurrentUser(res.data.currentUser || null);
         } catch (error) {
             console.error(error);
         } finally {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         fetchLb();
@@ -42,8 +49,8 @@ export default function Leaderboardpage({ textTheme,user }) {
                     </div>
                 </div>
 
-                {loading && <div className="flex justify-center"><span className="loading loading-dots loading-xl" /></div>}            
-                {!loading &&currentUser ?
+                {loading && <div className="flex justify-center"><span className="loading loading-dots loading-xl" /></div>}
+                {!loading && currentUser ?
                     <div>
                         <div>
                             <div className="grid grid-cols-5 p-3 font-bold text-center text-2xl">

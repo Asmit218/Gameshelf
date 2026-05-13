@@ -62,14 +62,14 @@ const profilepage = ({ textTheme, user }) => {
             <div className='mt-5 mb-20 font-bold flex flex-wrap justify-center gap-30'>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Medal /></div>
+                        <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Medal className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>BIOS Won</div>
                             <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><TrendingDown /></div>
+                        <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><TrendingDown  className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>BIOS Lost</div>
                             <div className='text-3xl'>248</div>
@@ -78,14 +78,14 @@ const profilepage = ({ textTheme, user }) => {
                 </div>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Coins /></div>
+                        <div className='h-22 w-22 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Coins className='h-8 w-8'  /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Best Streak</div>
                             <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Crown /></div>
+                        <div className='h-22 w-22 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Crown  className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Best Ranks</div>
                             <div className='text-3xl'>248</div>
@@ -94,14 +94,14 @@ const profilepage = ({ textTheme, user }) => {
                 </div>
                 <div className='flex flex-col gap-10'>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Award /></div>
+                        <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Award  className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Achievements</div>
                             <div className='text-3xl'>248</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
-                        <div className='h-25 w-25 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><User /></div>
+                        <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><User className='h-8 w-8'  /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Friends</div>
                             <div className='text-3xl'>248</div>

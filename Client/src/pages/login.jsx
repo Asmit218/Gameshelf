@@ -1,39 +1,29 @@
 import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/axios";
 
-export default function Login({setUser}) {
+export default function Login({ setUser }) {
 
-  const[email,setEmail] = useState("");
-  const[password,setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     try {
-      const res = await fetch("http://localhost:7000/api/auth/login",{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({email,password}),
-      });
-      const data = await res.json();
-      if (!res.ok){
-        console.error(data.message);
-        return;
+      const res = await api.post("/auth/login", {
+        email,
+        password,
       }
-      if(res.ok){
-        const check = await fetch("http://localhost:7000/api/auth/check",{
-          credentials:"include",
-        });
-        const userData = await check.json();
-        setUser(userData);
-        navigate("/");
-      }
-      
+      );
+
+      const check = await api.get("/auth/check");
+
+    setUser(check.data);
+    navigate("/");
+
     } catch (error) {
       console.error(error)
     }
@@ -45,7 +35,7 @@ export default function Login({setUser}) {
         <div className="bg-base-100/80 backdrop-blur-lg rounded-3xl p-8 shadow-lg w-full max-w-md">
           <h1 className="text-4xl font-bold">Login Page</h1>
           <div className="flex flex-col items-center justify-center mt-8">
-            <form className="w-full max-w-sm" action={'/'} onSubmit={(e)=>{e.preventDefault();handleLogin();}}>
+            <form className="w-full max-w-sm" action={'/'} onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
               <div className="mb-4">
                 <label
                   className="block text-base-content text-md font-bold mb-2"
@@ -75,14 +65,14 @@ export default function Login({setUser}) {
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                  <p className="text-sm mt-4">
-                    Forget password?{" "}
-                    <a href="#" className="text-primary hover:text-primary/50">
-                      Click here
-                    </a>
-                  </p>
+                <p className="text-sm mt-4">
+                  Forget password?{" "}
+                  <a href="#" className="text-primary hover:text-primary/50">
+                    Click here
+                  </a>
+                </p>
               </div>
               <div className="flex items-center justify-center">
                 <button

@@ -15,10 +15,10 @@ export default function Room({ textTheme, user }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const room = await api.get("/show");
+                const room = await api.get("/rooms/show");
                 setRoom(room.data);
 
-                const myroom = await api.get("/myroom");
+                const myroom = await api.get("/rooms/myroom");
                 setMyRoom(myroom.data);
             } catch (error) {
                 console.log("Error in Fetching Rooms : ", error);

@@ -8,7 +8,7 @@ export default function RoomLog({ data, setMyRoom, setRoom, user }) {
 
     const handleJoin = async (roomid, code) => {
         try {
-            const res = await api.post(`/join/${roomid}`, {
+            const res = await api.post(`/rooms/join/${roomid}`, {
                 joinCode: code
             });
 
@@ -24,7 +24,7 @@ export default function RoomLog({ data, setMyRoom, setRoom, user }) {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/delete/${id}`);
+            await api.delete(`/rooms/delete/${id}`);
             setMyRoom(prev => prev.filter(r => r._id !== id));
             window.location.reload();
         } catch (err) {
