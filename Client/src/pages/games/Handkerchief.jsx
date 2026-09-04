@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/footer';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Smartphone, Sparkles, HelpCircle } from 'lucide-react';
-import LocalUnravel from './unravel/LocalUnravel';
-import GlobalUnravel from './unravel/GlobalUnravel';
-import UnravelRulesModal from '../../components/games/UnravelRulesModal';
+import { Globe, Smartphone, Sparkles, HelpCircle, Clock } from 'lucide-react';
+import LocalHandkerchief from './handkerchief/LocalHandkerchief';
+import GlobalHandkerchief from './handkerchief/GlobalHandkerchief';
+import HandkerchiefRulesModal from '../../components/games/HandkerchiefRulesModal';
 
 /**
- * Unravel Main Page Component
- * Allows users to easily select between Online Multi-Device and Local Pass-and-Play modes.
+ * Drop the Handkerchief Main Page Component
+ * Allows users to toggle between Online Multi-Device and Local Pass-and-Play modes.
  */
-const Unravel = ({ textTheme = "text-white", user }) => {
+const Handkerchief = ({ textTheme = "text-white", user }) => {
   // mode: 'GLOBAL' | 'LOCAL'
-  const [selectedMode, setSelectedMode] = useState('GLOBAL');
+  const [selectedMode, setSelectedMode] = useState('LOCAL');
   const [showRules, setShowRules] = useState(false);
 
   return (
@@ -30,39 +30,41 @@ const Unravel = ({ textTheme = "text-white", user }) => {
             className="flex flex-col items-center"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 font-semibold text-sm mb-3">
-              <Sparkles className="w-4 h-4" /> 2-Player Tactical Code Cracker
+              <Sparkles className="w-4 h-4" /> 2-Player Tactical Timing Duel
             </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-wider uppercase">
-              UN<span className="text-yellow-500">RAVEL</span>
+            <h1 className="text-4xl md:text-6xl font-black tracking-wider uppercase">
+              DROP THE <span className="text-yellow-500">HANDKERCHIEF</span>
             </h1>
             <p className="text-base-content/70 mt-2 max-w-xl text-sm md:text-base">
-              Decipher your opponent's 4-digit code using <span className="text-emerald-400 font-bold">Frames</span> and <span className="text-amber-400 font-bold">Edges</span>!
+              Outsmart your opponent between <strong>0s & 60s</strong>! Avoid the <span className="text-rose-400 font-bold">+60s Foul</span> and survive the <span className="text-yellow-400 font-bold">300s limit</span>!
             </p>
 
             {/* Mode Switcher Tabs */}
             <div className="mt-6 flex items-center justify-center gap-3">
               <div className="flex bg-base-300 p-1.5 rounded-2xl border border-base-content/15 shadow-inner">
+
+
                 <button
                   onClick={() => setSelectedMode('GLOBAL')}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${
-                    selectedMode === 'GLOBAL'
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${selectedMode === 'GLOBAL'
                       ? 'bg-yellow-500 text-black shadow-md shadow-yellow-500/20'
                       : 'text-base-content/70 hover:text-base-content hover:bg-base-200/50'
-                  }`}
+                    }`}
                 >
                   <Globe className="w-4 h-4" /> Online Multi-Device
                 </button>
 
                 <button
                   onClick={() => setSelectedMode('LOCAL')}
-                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${
-                    selectedMode === 'LOCAL'
+                  className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${selectedMode === 'LOCAL'
                       ? 'bg-yellow-500 text-black shadow-md shadow-yellow-500/20'
                       : 'text-base-content/70 hover:text-base-content hover:bg-base-200/50'
-                  }`}
+                    }`}
                 >
                   <Smartphone className="w-4 h-4" /> Local Pass & Play
                 </button>
+
+
               </div>
 
               <button
@@ -79,13 +81,13 @@ const Unravel = ({ textTheme = "text-white", user }) => {
         {/* Main Content Area */}
         <AnimatePresence mode="wait">
           {selectedMode === 'GLOBAL' ? (
-            <GlobalUnravel key="global" user={user} />
+            <GlobalHandkerchief key="global" user={user} />
           ) : (
-            <LocalUnravel key="local" user={user} />
+            <LocalHandkerchief key="local" user={user} />
           )}
         </AnimatePresence>
 
-        <UnravelRulesModal isOpen={showRules} onClose={() => setShowRules(false)} />
+        <HandkerchiefRulesModal isOpen={showRules} onClose={() => setShowRules(false)} />
       </div>
 
       <Footer />
@@ -93,6 +95,4 @@ const Unravel = ({ textTheme = "text-white", user }) => {
   );
 };
 
-export default Unravel;
-
-
+export default Handkerchief;

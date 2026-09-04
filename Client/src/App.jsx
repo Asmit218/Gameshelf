@@ -8,6 +8,7 @@ import Signup from './pages/signup';
 import Setting from './pages/setting';
 import Leaderboardpage from './pages/leaderboardpage';
 import Unravel from './pages/games/unravel';
+import Handkerchief from './pages/games/Handkerchief';
 import { useEffect, useState } from "react";
 import api from './utils/axios';
 
@@ -114,6 +115,7 @@ function App() {
           <Route path="/settings" element={<Setting textTheme={textTheme} />} />
           <Route path="/leaderboard" element={<Leaderboardpage user={user} textTheme={textTheme} />} />
           <Route path="/unravel" element={<Unravel user={user} textTheme={textTheme} />} />
+          <Route path="/handkerchief" element={<Handkerchief user={user} textTheme={textTheme} />} />
         </Routes>
       </div>
     </>

@@ -3,7 +3,7 @@ import { generateRoomId } from "../utils/roomid.js";
 
 export const showRoom = async (req, res) => {
   try {
-    const room = await Room.find().sort({createdAt: -1}).limit(5);
+    const room = await Room.find().sort({ createdAt: -1 }).limit(5);
     res.status(200).json(room);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -15,7 +15,7 @@ export const showMyRoom = async (req, res) => {
   try {
     const playerId = req.user.playerId;
 
-    const room = await Room.find({ playerId: playerId }).sort({createdAt: -1});
+    const room = await Room.find({ playerId: playerId }).sort({ createdAt: -1 });
     res.status(200).json(room);
   } catch (error) {
     res.status(500).json({ message: error.message });

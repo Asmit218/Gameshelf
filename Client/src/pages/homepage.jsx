@@ -26,6 +26,19 @@ export default function Homepage({ textTheme, user }) {
       isNew: true
     },
     {
+      id: "handkerchief",
+      title: "Drop the Handkerchief",
+      photo: "/handkerchief_banner.jpg",
+      description: "Timing & bluffing duel between Dropper & Checker. Perfect check (+0s), avoid 60s Foul!",
+      difficulty: "Medium",
+      category: "Multiplayer",
+      player: "980+",
+      biosReward: "1,000",
+      link: "/handkerchief",
+      isHot: true,
+      isNew: true
+    },
+    {
       id: "bloody-dotty",
       title: "Bloody Dotty",
       photo: "/bloody_dotty_banner.jpg",
@@ -111,7 +124,7 @@ export default function Homepage({ textTheme, user }) {
             className="max-w-4xl text-center flex flex-col items-center"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 font-bold text-xs md:text-sm mb-4 backdrop-blur-md">
               <Sparkles className="w-4 h-4" /> Next-Gen Strategic Gaming Platform
@@ -213,4 +226,4 @@ export default function Homepage({ textTheme, user }) {
       <Footer />
     </>
   );
-}
+}
