@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import {motion, AnimatePresence } from 'framer-motion';
-import { Globe, Copy, Check, KeyRound, Eye, EyeOff, CheckCircle2, UserCheck, Swords, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Globe, Copy, Check, KeyRound, Eye, EyeOff, CheckCircle2, UserCheck, Swords, ArrowRight, ExternalLink } from 'lucide-react';
+import { useSearchParams, Link } from 'react-router-dom';
+import api from '../../../utils/axios';
 import BettingSystem from '../../../components/BettingSystem';
 import FourDigitInput from '../../../components/games/FourDigitInput';
 import UnravelBoard from '../../../components/games/UnravelBoard';
@@ -41,30 +43,22 @@ const calculateHints = (secretStr, guessStr) => {
   return { frames, edges };
 };
 
-const generateRoomCode = () => {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = 'UNR-';
-  for (let i = 0; i < 4; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return code;
-};
-
 /**
  * GlobalUnravel Component
- * Handles online multi-device room hosting, joining, real-time sync, and BIOS betting.
+ * Handles online Unravel gameplay using rooms created on the Room page (/room).
  */
 export default function GlobalUnravel({ user }) {
-  // Phase: 'LOBBY' | 'BETTING' | 'SETUP' | 'PLAYING' | 'GAME_OVER'
-  const [phase, setPhase] = useState('LOBBY');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const roomId = searchParams.get('roomId');
 
-  const [roomCode, setRoomCode] = useState('');
-  const [joinCodeInput, setJoinCodeInput] = useState('');
+  // Phase: 'BETTING' | 'SETUP' | 'PLAYING' | 'GAME_OVER'
+  const [phase, setPhase] = useState('BETTING');
+
   const [myRole, setMyRole] = useState(1); // 1 = Host, 2 = Guest
   const [copiedCode, setCopiedCode] = useState(false);
 
-  const [p1Name, setP1Name] = useState(user?.name || user?.username || "Host Player");
-  const [p2Name, setP2Name] = useState("Waiting for Guest...");
+  const [p1Name, setP1Name] = useState(user?.userName || user?.name || "Host Player");
+  const [p2Name, setP2Name] = useState("Waiting for Opponent...");
 
   const [betAmount, setBetAmount] = useState(100);
   const [p1BetConfirmed, setP1BetConfirmed] = useState(false);
@@ -87,6 +81,32 @@ export default function GlobalUnravel({ user }) {
   const [showRules, setShowRules] = useState(false);
   const channelRef = useRef(null);
 
+  // Load room metadata if roomId is in URL
+  useEffect(() => {
+    if (!roomId || !user) return;
+
+    const fetchRoomInfo = async () => {
+      try {
+        const res = await api.get(`/rooms/get/${roomId}`);
+        const room = res.data?.data;
+        if (room) {
+          const isHost = room.playerId === user.playerId;
+          setMyRole(isHost ? 1 : 2);
+          setP1Name(room.createdby || "Host Player");
+          if (!isHost) {
+            setP2Name(user.userName || "Guest (You)");
+          } else if (room.players?.length > 1) {
+            setP2Name("Guest Player");
+          }
+        }
+      } catch (err) {
+        console.log("Error fetching room info:", err);
+      }
+    };
+
+    fetchRoomInfo();
+  }, [roomId, user]);
+
   // Function to apply state received from another device/tab
   const applySyncedState = useCallback((newState) => {
     if (!newState) return;
@@ -107,9 +127,9 @@ export default function GlobalUnravel({ user }) {
 
   // Cross-Device Real-Time Sync via BroadcastChannel & Storage events
   useEffect(() => {
-    if (!roomCode) return;
+    if (!roomId) return;
 
-    const channelName = `unravel_global_${roomCode}`;
+    const channelName = `unravel_global_${roomId}`;
     const bc = new BroadcastChannel(channelName);
     channelRef.current = bc;
 
@@ -121,7 +141,7 @@ export default function GlobalUnravel({ user }) {
     };
 
     const handleStorageChange = (e) => {
-      if (e.key === `unravel_state_${roomCode}`) {
+      if (e.key === `unravel_state_${roomId}`) {
         try {
           const parsed = JSON.parse(e.newValue);
           if (parsed) applySyncedState(parsed);
@@ -137,10 +157,10 @@ export default function GlobalUnravel({ user }) {
       bc.close();
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [roomCode, applySyncedState]);
+  }, [roomId, applySyncedState]);
 
   const broadcastGameState = (override = {}) => {
-    if (!roomCode) return;
+    if (!roomId) return;
     const currentState = {
       phase,
       betAmount,
@@ -165,34 +185,12 @@ export default function GlobalUnravel({ user }) {
       });
     }
 
-    localStorage.setItem(`unravel_state_${roomCode}`, JSON.stringify(currentState));
-  };
-
-  const handleHostRoom = () => {
-    const newCode = generateRoomCode();
-    setRoomCode(newCode);
-    setMyRole(1);
-    setP1Name(user?.name || user?.username || "Host (You)");
-    setP2Name("Waiting for Guest...");
-    setPhase('BETTING');
-  };
-
-  const handleJoinRoom = (e) => {
-    if (e) e.preventDefault();
-    if (!joinCodeInput || joinCodeInput.trim().length < 4) return;
-
-    const formattedCode = joinCodeInput.trim().toUpperCase();
-    setRoomCode(formattedCode);
-    setMyRole(2);
-    const guestName = user?.name || user?.username || "Guest (You)";
-    setP2Name(guestName);
-    setPhase('BETTING');
-
-    broadcastGameState({ p2Name: guestName, phase: 'BETTING' });
+    localStorage.setItem(`unravel_state_${roomId}`, JSON.stringify(currentState));
   };
 
   const handleCopyRoomCode = () => {
-    navigator.clipboard.writeText(roomCode);
+    if (!roomId) return;
+    navigator.clipboard.writeText(roomId);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
   };
@@ -305,9 +303,7 @@ export default function GlobalUnravel({ user }) {
   };
 
   const handleResetGame = () => {
-    setPhase('LOBBY');
-    setRoomCode('');
-    setJoinCodeInput('');
+    setPhase('BETTING');
     setBetAmount(100);
     setP1BetConfirmed(false);
     setP2BetConfirmed(false);
@@ -323,79 +319,74 @@ export default function GlobalUnravel({ user }) {
     setP2Guesses([]);
     setWinner(null);
     setWinningGuess('');
+
+    broadcastGameState({
+      phase: 'BETTING',
+      p1BetConfirmed: false,
+      p2BetConfirmed: false,
+      p1SecretConfirmed: false,
+      p2SecretConfirmed: false,
+      currentTurn: 1,
+      p1Guesses: [],
+      p2Guesses: [],
+      winner: null,
+      winningGuess: ''
+    });
   };
+
+  // If no room is joined / selected from the Room page
+  if (!roomId) {
+    return (
+      <div className="max-w-xl mx-auto py-8">
+        <div className="bg-base-300 border-2 border-secondary-content/60 rounded-3xl p-8 shadow-2xl backdrop-blur-md text-center space-y-6">
+          <div className="p-4 bg-yellow-500/20 text-yellow-500 rounded-full w-fit mx-auto">
+            <Globe className="w-10 h-10" />
+          </div>
+
+          <div>
+            <h2 className="text-2xl md:text-3xl font-black">Global Unravel Rooms</h2>
+            <p className="text-xs md:text-sm text-base-content/70 mt-2 leading-relaxed">
+              Create or join an Unravel room from the <strong>Room Page</strong> to play against opponents online.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <Link
+              to="/room"
+              className="btn btn-primary text-primary-content px-8 py-3.5 rounded-2xl font-black text-base shadow-lg shadow-yellow-500/20 w-full flex items-center justify-center gap-2 cursor-pointer"
+            >
+              Go to Room Page <ExternalLink className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
-      <div>
-        
-        {roomCode && (
-          <div className="flex items-center gap-2 bg-base-200 px-3 py-1.5 rounded-xl border border-yellow-500/40 text-xs">
-            <span className="text-base-content/60 font-bold">Room Code:</span>
-            <span className="font-mono font-black text-yellow-400 tracking-wider">{roomCode}</span>
-            <button
-              onClick={handleCopyRoomCode}
-              className="p-1 hover:bg-base-300 rounded cursor-pointer"
-              title="Copy Code"
-            >
-              {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-base-content/70" />}
-            </button>
-          </div>
-        )}
+      <div className="flex justify-between items-center bg-base-300/60 px-4 py-2 rounded-2xl border border-yellow-500/30">
+        <div className="flex items-center gap-2 bg-base-200 px-3 py-1.5 rounded-xl border border-yellow-500/40 text-xs">
+          <span className="text-base-content/60 font-bold">Room ID:</span>
+          <span className="font-mono font-black text-yellow-400 tracking-wider">{roomId}</span>
+          <button
+            onClick={handleCopyRoomCode}
+            className="p-1 hover:bg-base-300 rounded cursor-pointer"
+            title="Copy Room ID"
+          >
+            {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-base-content/70" />}
+          </button>
+        </div>
+
+        <button
+          onClick={() => setSearchParams({})}
+          className="text-xs font-bold text-base-content/70 hover:text-error transition-colors px-3 py-1.5 rounded-xl hover:bg-error/10 cursor-pointer"
+        >
+          Leave Room
+        </button>
       </div>
 
       <AnimatePresence mode="wait">
-        {/* PHASE 0: ONLINE LOBBY (HOST / JOIN) */}
-        {phase === 'LOBBY' && (
-          <motion.div
-            key="global_lobby"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="max-w-xl mx-auto"
-          >
-            <div className="bg-base-300 border-2 border-secondary-content/60 rounded-3xl p-6 md:p-8 shadow-2xl backdrop-blur-md space-y-6">
-              <div className="text-center">
-                <div className="p-3 bg-yellow-500/20 text-yellow-500 rounded-full w-fit mx-auto mb-3">
-                  <Globe className="w-8 h-8" />
-                </div>
-                <h2 className="text-2xl font-black">Multi-Device Online Room</h2>
-                <p className="text-xs text-base-content/70 mt-1">
-                  Host a room or enter a code to duel across devices!
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <button
-                  onClick={handleHostRoom}
-                  className="w-full py-4 rounded-2xl font-black text-base bg-yellow-500 hover:bg-yellow-400 text-black shadow-lg shadow-yellow-500/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Globe className="w-5 h-5" /> Host New Online Room
-                </button>
-
-                <div className="divider text-xs text-base-content/40 uppercase">OR JOIN ROOM</div>
-
-                <form onSubmit={handleJoinRoom} className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Enter Room Code (e.g. UNR-4821)"
-                    value={joinCodeInput}
-                    onChange={(e) => setJoinCodeInput(e.target.value.toUpperCase())}
-                    className="flex-1 bg-base-100 border border-base-content/20 px-4 py-3 text-sm font-mono font-bold rounded-2xl focus:border-yellow-500 focus:outline-none uppercase"
-                  />
-                  <button
-                    type="submit"
-                    disabled={joinCodeInput.trim().length < 4}
-                    className="px-6 py-3 bg-base-100 border border-base-content/20 hover:bg-base-200 font-bold text-sm rounded-2xl disabled:opacity-40 cursor-pointer"
-                  >
-                    Join Room
-                  </button>
-                </form>
-              </div>
-            </div>
-          </motion.div>
-        )}
-
         {/* PHASE 1: REUSABLE BETTING SYSTEM */}
         {phase === 'BETTING' && (
           <BettingSystem

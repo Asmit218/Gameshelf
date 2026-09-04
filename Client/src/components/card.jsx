@@ -5,6 +5,25 @@ import { useNavigate } from 'react-router-dom';
 
 
 function SimplisticBanner({ id, title }) {
+  if (id === 'handkerchief' || id === 'drop-the-handkerchief') {
+    return (
+      <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-yellow-500/30 overflow-hidden">
+        <div className="absolute -left-8 -top-8 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl" />
+        <div className="flex items-center gap-3">
+          
+          <div className="flex flex-col text-left">
+            <span className="text-[11px] font-mono font-bold text-yellow-400 text-center">0.0s – 60.0s</span>
+            <span className="text-xs font-black text-white">Drop The Handkercheif</span>
+          </div>
+        </div>
+        <div className="flex gap-2 mt-3 text-[10px] font-bold">
+          <span className="text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">🎯 Perfect: +0s</span>
+          <span className="text-rose-400 bg-rose-950/60 px-2 py-0.5 rounded-md border border-rose-500/30">⚠️ Foul: +60s</span>
+        </div>
+      </div>
+    );
+  }
+
   if (id === 'unravel') {
     return (
       <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-yellow-500/30 overflow-hidden">
@@ -125,7 +144,7 @@ export default function Card({
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      transition={{ type: "tween", duration: 0.1}}
       onClick={() => navigate(link)}
       className="group relative flex flex-col justify-between w-72 md:w-80 rounded-3xl bg-base-200/90 border border-base-content/15 hover:border-yellow-500/50 shadow-xl hover:shadow-yellow-500/10 overflow-hidden cursor-pointer backdrop-blur-md transition-all duration-300"
     >
