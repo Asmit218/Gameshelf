@@ -4,41 +4,7 @@ import { KeyRound, Eye, EyeOff, CheckCircle2, UserCheck, Swords, ArrowRight, Sma
 import FourDigitInput from '../../../components/games/FourDigitInput';
 import UnravelBoard from '../../../components/games/UnravelBoard';
 import VictoryScreen from '../../../components/games/VictoryScreen';
-import UnravelRulesModal from '../../../components/games/UnravelRulesModal';
-
-// Frame & Edge Hint Calculation Logic
-const calculateHints = (secretStr, guessStr) => {
-  const secret = secretStr.split('');
-  const guess = guessStr.split('');
-
-  let frames = 0;
-  let edges = 0;
-
-  const secretUsed = [false, false, false, false];
-  const guessUsed = [false, false, false, false];
-
-  for (let i = 0; i < 4; i++) {
-    if (guess[i] === secret[i]) {
-      frames++;
-      secretUsed[i] = true;
-      guessUsed[i] = true;
-    }
-  }
-
-  for (let i = 0; i < 4; i++) {
-    if (!guessUsed[i]) {
-      for (let j = 0; j < 4; j++) {
-        if (!secretUsed[j] && guess[i] === secret[j]) {
-          edges++;
-          secretUsed[j] = true;
-          break;
-        }
-      }
-    }
-  }
-
-  return { frames, edges };
-};
+import { calculateHints } from '../gameUtils';
 
 /**
  * LocalUnravel Component

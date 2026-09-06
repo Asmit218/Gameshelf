@@ -10,7 +10,7 @@ export default function Homepage({ textTheme, user }) {
   const [activeTab, setActiveTab] = useState("all");
   const navigate = useNavigate();
 
-  // Featured Game Catalog
+  // Featured Game Catalog (Active Games)
   const games = [
     {
       id: "unravel",
@@ -37,7 +37,11 @@ export default function Homepage({ textTheme, user }) {
       link: "/handkerchief",
       isHot: true,
       isNew: true
-    },
+    }
+  ];
+
+  // Upcoming Games
+  const upcomingGames = [
     {
       id: "bloody-dotty",
       title: "Bloody Dotty",
@@ -45,67 +49,11 @@ export default function Homepage({ textTheme, user }) {
       description: "Grid conquest strategy game. Stake BIOS and eliminate dots to dominate the match.",
       difficulty: "Medium",
       category: "Strategy",
-      player: "850+",
+      player: "Coming Soon",
       biosReward: "500",
-      link: "/room",
+      link: "#",
       isHot: true,
       isNew: false
-    },
-    {
-      id: "mind-vault",
-      title: "Mind Vault",
-      photo: "/mind_vault_banner.jpg",
-      description: "Memory sequence & pattern decoder. Fast-paced mental agility challenge.",
-      difficulty: "Easy",
-      category: "Puzzle",
-      player: "620+",
-      biosReward: "300",
-      link: "/room",
-      isHot: false,
-      isNew: true
-    },
-    {
-      id: "cyber-matrix",
-      title: "Cyber Matrix",
-      photo: "/cyber_matrix_banner.jpg",
-      description: "Turn-based tactical matrix battle. Out-maneuver enemy tokens to claim victory.",
-      difficulty: "Hard",
-      category: "Strategy",
-      player: "410+",
-      biosReward: "750",
-      link: "/room",
-      isHot: false,
-      isNew: false
-    }
-  ];
-
-  // Upcoming Games
-  const upcomingGames = [
-    {
-      id: "quantum-chess",
-      title: "Quantum Chess 2.0",
-      photo: "/quantum_chess_banner.jpg",
-      description: "Chess augmented with superposition and tactical power cards.",
-      difficulty: "Hard",
-      category: "Strategy",
-      player: "Coming Soon",
-      biosReward: "2,000",
-      link: "#",
-      isHot: false,
-      isNew: true
-    },
-    {
-      id: "neon-blitz",
-      title: "Neon Blitz",
-      photo: "/neon_blitz_banner.jpg",
-      description: "Reflex reaction time racing & pattern matching duel.",
-      difficulty: "Medium",
-      category: "Arcade",
-      player: "Coming Soon",
-      biosReward: "1,500",
-      link: "#",
-      isHot: false,
-      isNew: true
     }
   ];
 
@@ -212,7 +160,7 @@ export default function Homepage({ textTheme, user }) {
             <div className="flex items-center gap-2 text-yellow-500 font-bold text-sm uppercase tracking-wider mb-1">
               <Sparkles className="w-4 h-4" /> Next Releases
             </div>
-            <h2 className="text-3xl md:text-4xl font-black">Upcoming Arena Games</h2>
+            <h2 className="text-3xl md:text-4xl font-black">Upcoming Games</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">

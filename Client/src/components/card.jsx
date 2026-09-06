@@ -1,19 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Coins, Users, Flame, Sparkles, ArrowRight, Grid, Brain, Cpu, ShieldAlert, Zap } from 'lucide-react';
+import { Coins, Users, Flame, Sparkles, ArrowRight, Grid, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 
-function SimplisticBanner({ id, title }) {
+function SimplisticBanner({ id }) {
   if (id === 'handkerchief' || id === 'drop-the-handkerchief') {
     return (
       <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-yellow-500/30 overflow-hidden">
         <div className="absolute -left-8 -top-8 w-32 h-32 bg-amber-500/15 rounded-full blur-2xl" />
         <div className="flex items-center gap-3">
-          
           <div className="flex flex-col text-left">
             <span className="text-[11px] font-mono font-bold text-yellow-400 text-center">0.0s – 60.0s</span>
-            <span className="text-xs font-black text-white">Drop The Handkercheif</span>
+            <span className="text-xs font-black text-white">Drop The Handkerchief</span>
           </div>
         </div>
         <div className="flex gap-2 mt-3 text-[10px] font-bold">
@@ -32,13 +31,12 @@ function SimplisticBanner({ id, title }) {
           {['8', '4', '9', '2'].map((digit, idx) => (
             <div
               key={idx}
-              className={`w-10 h-12 rounded-xl flex items-center justify-center text-xl font-black font-mono border ${
-                idx === 0
-                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-md shadow-emerald-500/20'
-                  : idx === 1
+              className={`w-10 h-12 rounded-xl flex items-center justify-center text-xl font-black font-mono border ${idx === 0
+                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/50 shadow-md shadow-emerald-500/20'
+                : idx === 1
                   ? 'bg-amber-500/20 text-amber-400 border-amber-500/50'
                   : 'bg-base-300/80 text-yellow-400 border-base-content/20'
-              }`}
+                }`}
             >
               {digit}
             </div>
@@ -63,49 +61,14 @@ function SimplisticBanner({ id, title }) {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
             <div
               key={n}
-              className={`w-3.5 h-3.5 rounded-full ${
-                n % 2 === 0
-                  ? 'bg-rose-500 shadow-lg shadow-rose-500/80 animate-pulse'
-                  : 'bg-slate-700'
-              }`}
+              className={`w-3.5 h-3.5 rounded-full ${n % 2 === 0
+                ? 'bg-rose-500 shadow-lg shadow-rose-500/80 animate-pulse'
+                : 'bg-slate-700'
+                }`}
             />
           ))}
         </div>
         <span className="text-[10px] font-extrabold text-rose-400 tracking-wider uppercase mt-2">Node Dominance</span>
-      </div>
-    );
-  }
-
-  if (id === 'mind-vault') {
-    return (
-      <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-cyan-500/30 overflow-hidden">
-        <div className="absolute w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl" />
-        <div className="p-3 bg-cyan-500/20 text-cyan-400 rounded-2xl border border-cyan-500/40 mb-2 shadow-lg shadow-cyan-500/20">
-          <Brain className="w-8 h-8" />
-        </div>
-        <span className="text-xs font-extrabold text-cyan-400 tracking-widest uppercase">Memory Sequence</span>
-      </div>
-    );
-  }
-
-  if (id === 'cyber-matrix') {
-    return (
-      <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-purple-500/30 overflow-hidden">
-        <div className="p-3 bg-purple-500/20 text-purple-400 rounded-2xl border border-purple-500/40 mb-2 shadow-lg shadow-purple-500/20">
-          <Cpu className="w-8 h-8" />
-        </div>
-        <span className="text-xs font-extrabold text-purple-400 tracking-widest uppercase">Tactical Matrix</span>
-      </div>
-    );
-  }
-
-  if (id === 'quantum-chess') {
-    return (
-      <div className="relative w-full h-44 bg-slate-950 flex flex-col items-center justify-center p-4 border-b border-indigo-500/30 overflow-hidden">
-        <div className="p-3 bg-indigo-500/20 text-indigo-400 rounded-2xl border border-indigo-500/40 mb-2 shadow-lg shadow-indigo-500/20">
-          <ShieldAlert className="w-8 h-8" />
-        </div>
-        <span className="text-xs font-extrabold text-indigo-400 tracking-widest uppercase">Quantum Superposition</span>
       </div>
     );
   }
@@ -115,7 +78,7 @@ function SimplisticBanner({ id, title }) {
       <div className="p-3 bg-yellow-500/20 text-yellow-400 rounded-2xl border border-yellow-500/40 mb-2 shadow-lg shadow-yellow-500/20">
         <Zap className="w-8 h-8" />
       </div>
-      <span className="text-xs font-extrabold text-yellow-400 tracking-widest uppercase">Arcade Speed</span>
+      <span className="text-xs font-extrabold text-yellow-400 tracking-widest uppercase">Coming Soon</span>
     </div>
   );
 }
@@ -144,7 +107,7 @@ export default function Card({
   return (
     <motion.div
       whileHover={{ y: -8, scale: 1.02 }}
-      transition={{ type: "tween", duration: 0.1}}
+      transition={{ type: "tween", duration: 0.1 }}
       onClick={() => navigate(link)}
       className="group relative flex flex-col justify-between w-72 md:w-80 rounded-3xl bg-base-200/90 border border-base-content/15 hover:border-yellow-500/50 shadow-xl hover:shadow-yellow-500/10 overflow-hidden cursor-pointer backdrop-blur-md transition-all duration-300"
     >

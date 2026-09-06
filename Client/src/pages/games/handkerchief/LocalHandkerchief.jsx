@@ -16,8 +16,7 @@ import {
 } from 'lucide-react';
 import CoinToss from '../../../components/games/CoinToss';
 import TimeAccountGauge from '../../../components/games/TimeAccountGauge';
-
-const MAX_PENALTY_TIME = 300;
+import { calculateHandkerchiefPenalty, MAX_HANDKERCHIEF_PENALTY_TIME as MAX_PENALTY_TIME } from '../gameUtils';
 
 export default function LocalHandkerchief({ user }) {
   // Phase: 'TOSS' | 'DROPPER_PASS' | 'DROPPER_INPUT' | 'CHECKER_PASS' | 'CHECKER_INPUT' | 'ROUND_REVEAL' | 'GAME_OVER'
@@ -60,22 +59,7 @@ export default function LocalHandkerchief({ user }) {
 
   // Submit Checker Guess & Compute Results
   const handleSubmitCheckerTime = () => {
-    const dTime = Number(dropperTime);
-    const cTime = Number(checkerTime);
-
-    let resultType = 'DELAY';
-    let penalty = 0;
-
-    if (cTime === dTime) {
-      resultType = 'PERFECT';
-      penalty = 0;
-    } else if (cTime < dTime) {
-      resultType = 'FOUL';
-      penalty = 60;
-    } else {
-      resultType = 'DELAY';
-      penalty = Number((cTime - dTime).toFixed(1));
-    }
+    const { type: resultType, penalty } = calculateHandkerchiefPenalty(dropperTime, checkerTime);
 
     // Determine which player gets the penalty
     let newP1Time = p1Time;

@@ -25,8 +25,7 @@ import api from '../../../utils/axios';
 import CoinToss from '../../../components/games/CoinToss';
 import TimeAccountGauge from '../../../components/games/TimeAccountGauge';
 import BettingSystem from '../../../components/BettingSystem';
-
-const MAX_PENALTY_TIME = 300;
+import { calculateHandkerchiefPenalty, MAX_HANDKERCHIEF_PENALTY_TIME as MAX_PENALTY_TIME } from '../gameUtils';
 
 export default function GlobalHandkerchief({ user }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -234,19 +233,7 @@ export default function GlobalHandkerchief({ user }) {
     const dTime = Number(dropperSecretTime);
     const cTime = Number(checkerGuessTime);
 
-    let resultType = 'DELAY';
-    let penalty = 0;
-
-    if (cTime === dTime) {
-      resultType = 'PERFECT';
-      penalty = 0;
-    } else if (cTime < dTime) {
-      resultType = 'FOUL';
-      penalty = 60;
-    } else {
-      resultType = 'DELAY';
-      penalty = Number((cTime - dTime).toFixed(1));
-    }
+    const { type: resultType, penalty } = calculateHandkerchiefPenalty(dTime, cTime);
 
     const checkerPlayerNum = dropperRole === 1 ? 2 : 1;
     let newP1Time = p1Time;
