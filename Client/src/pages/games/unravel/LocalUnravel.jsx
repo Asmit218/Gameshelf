@@ -272,7 +272,7 @@ export default function LocalUnravel({ user }) {
         )}
       </AnimatePresence>
 
-      <UnravelRulesModal isOpen={showRules} onClose={() => setShowRules(false)} />
+      {/* <UnravelRulesModal isOpen={showRules} onClose={() => setShowRules(false)} /> */}
     </div>
   );
 }
