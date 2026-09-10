@@ -59,7 +59,9 @@ export default function LocalHandkerchief({ user }) {
 
   // Submit Checker Guess & Compute Results
   const handleSubmitCheckerTime = () => {
-    const { type: resultType, penalty } = calculateHandkerchiefPenalty(dropperTime, checkerTime);
+    const dTime = Number(dropperTime);
+    const cTime = Number(checkerTime);
+    const { type: resultType, penalty } = calculateHandkerchiefPenalty(dTime, cTime);
 
     // Determine which player gets the penalty
     let newP1Time = p1Time;
