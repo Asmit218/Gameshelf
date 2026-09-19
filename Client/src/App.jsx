@@ -11,12 +11,14 @@ import Unravel from './pages/games/unravel';
 import Handkerchief from './pages/games/Handkerchief';
 import { useEffect, useState } from "react";
 import api from './utils/axios';
+import { AuthContext } from './utils/AuthProvider';
+import { useContext } from 'react';
 
 function App() {
 
   const [textTheme, setTextTheme] = useState("");
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true)
+  const {user,setUser} = useContext(AuthContext)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -107,15 +109,15 @@ function App() {
       <div className="finisher-header -z-10 h-screen inset-0 fixed"></div>
       <div>
         <Routes>
-          <Route path="/" element={<Homepage user={user} textTheme={textTheme} />} />
-          <Route path="/profile" element={<Profilepage user={user} textTheme={textTheme} />} />
-          <Route path="/room" element={<Roompage user={user} textTheme={textTheme} />} />
-          <Route path="/login" element={<Login  setUser={setUser}  />} />
-          <Route path="/signup" element={<Signup  setUser={setUser} />} />
-          <Route path="/settings" element={<Setting textTheme={textTheme} />} />
-          <Route path="/leaderboard" element={<Leaderboardpage user={user} textTheme={textTheme} />} />
-          <Route path="/unravel" element={<Unravel user={user} textTheme={textTheme} />} />
-          <Route path="/handkerchief" element={<Handkerchief user={user} textTheme={textTheme} />} />
+          <Route path="/" element={<Homepage/>} />
+          <Route path="/profile" element={<Profilepage/>} />
+          <Route path="/room" element={<Roompage/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/settings" element={<Setting/>} />
+          <Route path="/leaderboard" element={<Leaderboardpage/>} />
+          <Route path="/unravel" element={<Unravel/>} />
+          <Route path="/handkerchief" element={<Handkerchief/>} />
         </Routes>
       </div>
     </>
