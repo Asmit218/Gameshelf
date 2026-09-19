@@ -2,14 +2,17 @@ import { useState } from "react";
 import AuthImagePattern from "../components/pattern";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/axios";
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthProvider";
 
-export default function Signup({ setUser }) {
+export default function Signup() {
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const {setUser} = useContext(AuthContext);
 
   const handleSignup = async () => {
     try {

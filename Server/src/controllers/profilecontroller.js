@@ -105,6 +105,8 @@ export const matchHistory = async (req, res) => {
     }
 };
 
+//For level functionality
+
 export const levelxp = async (req, res) => {
     try {
         const playerId = req.params.playerId;
@@ -117,6 +119,53 @@ export const levelxp = async (req, res) => {
         res.status(200).json({
             level : level,
             xp : remainder
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+//For Bios count in profile page
+
+export const biosCount = async(req,res) =>{
+    try {
+        const playerId = req.params.playerId;
+        const user = await User.findOne({playerId});
+        if(!user){
+            return res.status(404).json({message:"User not found"});
+        }
+        const bios = user.bios;
+        const won = await Match.aggregate([
+            {
+                $match: {
+                    winner: user._id
+                }
+            },
+            {
+                $group:{
+                    _id:null,
+                    biosWon:{$sum:"$bios"},
+                }
+            }
+        ])
+        const lost = await Match.aggregate([
+            {
+                $match: {
+                    player: user._id,
+                    winner: {$ne:user._id}
+                }
+            },
+            {
+                $group:{
+                    _id:null,
+                    biosLost:{$sum:"$bios"},
+                }
+            }
+        ])
+        res.status(200).json({
+            bios:bios,
+            biosWonCount:won[0]?.biosWon||0,
+            biosLostCount:lost[0]?.biosLost||0
         })
     } catch (error) {
         res.status(500).json({ message: error.message })

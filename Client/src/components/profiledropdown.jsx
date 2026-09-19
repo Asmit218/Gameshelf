@@ -1,19 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import profilepage from "../pages/profilepage";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../utils/AuthProvider";
+import { useContext } from "react";
+import api from "../utils/axios";
 
-export default function ProfileDropdown({ user }) {
+export default function ProfileDropdown() {
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
 
     const handleLogout = async () => {
         try {
-            const res = await fetch("http://localhost:7000/api/auth/logout", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            })
+            const res = await api.post("/auth/logout");
             window.location.reload();
             navigate("/");
         } catch (error) {
