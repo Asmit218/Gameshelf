@@ -1,7 +1,6 @@
 import { PieChart, Pie, Label, Legend, ResponsiveContainer } from 'recharts';
 
-export default function Chartpie1({ gameWin }) {
-
+export default function Chartpie2({gameCount}) {
   const colors = [
     '#FFE8B9',
     '#FFC800',
@@ -10,9 +9,9 @@ export default function Chartpie1({ gameWin }) {
     '#8B5CF6'
   ];
 
-  const data = gameWin.map((game,index) => ({
+  const data = gameCount.map((game, index) => ({
     name: game._id,
-    value: game.win,
+    value: game.count,
     fill: colors[index % colors.length]
   }));
 
@@ -21,7 +20,7 @@ export default function Chartpie1({ gameWin }) {
   );
   return (
     <div>
-      <div className='text-center font-bold'>Wins by game</div>
+      <div className='text-center font-bold'>Matches by game</div>
       <PieChart responsive style={{
         maxWidth: '420px',
         maxHeight: '30vh',

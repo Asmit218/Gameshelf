@@ -1,38 +1,14 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
 
-export default function Chartbar1() {
-    const data = [
-        {
-            name: 'Unravel',
-            pv: 2400,
+export default function Chartbar1({ gameCount=[] }) {
 
-        },
-        {
-            name: 'Drop the handkercheif',
-            pv: 1398,
 
-        },
-        {
-            name: 'Higher Lower',
-            pv: 9800,
+    const data = gameCount.map((game) => ({
+        name:game._id,
+        pv:game.count
+    }));
 
-        },
-        {
-            name: 'Bloody Dotty',
-            pv: 3908,
 
-        },
-        {
-            name: 'Game of contradiction',
-            pv: 4800,
-
-        },
-        {
-            name: 'Goofspeil',
-            pv: 3800,
-
-        }
-    ];
     return (
         <div className=''>
             <BarChart
@@ -40,14 +16,14 @@ export default function Chartbar1() {
                 responsive
                 data={data}
                 margin={{
-                    top: 15,
+                    top: 20,
                     right: 0,
                     left: 0,
                     bottom: 5,
                 }}
             >
                 <XAxis dataKey="name" />
-                <YAxis width="auto"/>
+                <YAxis width="auto" />
                 <Bar dataKey="pv" className='fill-base-100 stroke-secondary-content hover:stroke-secondary stroke-2' barSize={70} radius={[10, 10, 0, 0]} >
                     <LabelList content='pv' position='top' />
                 </Bar>
