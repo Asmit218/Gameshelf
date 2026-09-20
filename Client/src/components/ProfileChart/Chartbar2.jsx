@@ -1,44 +1,11 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList } from 'recharts';
 
-export default function Chartbar2() {
-    const data = [
-        {
-            name: 'Unravel',
-            Win: 24,
-            Lost: 11
-
-        },
-        {
-            name: 'Drop the handkercheif',
-            Win: 13,
-            Lost: 11
-
-        },
-        {
-            name: 'Higher Lower',
-            Win: 9,
-            Lost: 11
-   
-        },
-        {
-            name: 'Bloody Dotty',
-            Win: 3,
-            Lost: 11
-  
-        },
-        {
-            name: 'Game of contradiction',
-            Win: 4,
-            Lost: 11
-     
-        },
-        {
-            name: 'Goofspeil',
-            Win: 30,
-            Lost: 11
-
-        }
-    ];
+export default function Chartbar2({gameWin}) {
+    const data = gameWin.map((game)=>({
+        name:game._id,
+        Win:game.win,
+        Loss:game.loss
+    }));
     return (
         <BarChart
             style={{padding:'20px', width: '100%', maxWidth: '1200px', maxHeight: '37vh', aspectRatio: 1.618 }}

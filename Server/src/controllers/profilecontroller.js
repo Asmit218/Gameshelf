@@ -61,13 +61,30 @@ export const gameWinCount = async (req, res) => {
         const wins = await Match.aggregate([
             {
                 $match: {
-                    winner: playerId
+                    player: playerId
                 }
             },
             {
                 $group: {
                     _id: "$game",
-                    wins: { $sum: 1 }
+                    win: {
+                        $sum:{
+                            $cond: [
+                                {$eq:["$winner",playerId]},
+                                1,
+                                0
+                            ]
+                        }
+                    },
+                    loss: {
+                        $sum:{
+                            $cond: [
+                                {$ne:["$winner",playerId]},
+                                1,
+                                0
+                            ]
+                        }
+                    }
                 }
             }]);
         res.status(200).json(wins);
@@ -114,7 +131,7 @@ export const levelxp = async (req, res) => {
         if(!user){
             return res.status(404).json({message:"user not found"});
         }
-        const level = Math.floor(user.xp / 100);
+        const level = Math.floor(user.xp / 100)+1;
         const remainder = user.xp % 100;
         res.status(200).json({
             level : level,
