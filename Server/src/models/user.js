@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
+    bestRank:{
+        type:Number,
+        default:100
+    },
     bgPhoto: {
         type: String,
         default: "",

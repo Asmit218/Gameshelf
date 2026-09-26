@@ -14,7 +14,7 @@ const Matchtable = ({gameHistory=[]}) => {
 
                 {gameHistory.map((match,index)=>(
                     <div key={index} className='grid grid-cols-5 p-3 text-center text'>
-                        <div>{match.opponent}</div>
+                        <div>{match.opponentUser}</div>
                         <div>{match.game}</div>
                         <div>{match.result}</div>
                         <div>{match.bios}</div>

@@ -38,6 +38,11 @@ export const getLeaderboard = async (req, res) => {
         });
 
         const userRank = higherCount + 1;
+        const bestRank = currentUser.bestRank;
+        if(userRank<bestRank){
+            currentUser.bestRank = userRank;
+            await currentUser.save();
+        }
 
         res.json({
             leaderboard,

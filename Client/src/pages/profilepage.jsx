@@ -26,19 +26,22 @@ const profilepage = ({ textTheme }) => {
     const [gameCount, setGameCount] = useState([]);
     const [gameWin,setGameWin] = useState([]);
     const [gameHistory,setGameHistory] = useState([]);
+    const [bestRank,setBestRank] = useState(0);
+    const [friend,setFriend] = useState(0);
 
     useEffect(() => {
         if (!user?.playerId) return;
 
         const getProfileStats = async () => {
             try {
-                const [winLoss, bios, levelxp, match, winCount, history] = await Promise.all([
+                const [winLoss, bios, levelxp, match, winCount, history, other] = await Promise.all([
                     api.get(`/profile/totalwinloss/${user.playerId}`),
                     api.get(`/profile/bioscount/${user.playerId}`),
                     api.get(`/profile/levelxp/${user.playerId}`),
                     api.get(`/profile/gamecount/${user.playerId}`),
                     api.get(`/profile/gamewin/${user.playerId}`),
-                    api.get(`/profile/history/${user.playerId}`)
+                    api.get(`/profile/history/${user.playerId}`),
+                    api.get(`/profile/otherstats/${user.playerId}`)
                 ]);
 
                 setMatch(winLoss.data.total);
@@ -55,6 +58,9 @@ const profilepage = ({ textTheme }) => {
                 setGameWin(winCount.data);
 
                 setGameHistory(history.data);
+                
+                setBestRank(other.data.bestRank);
+                setFriend(other.data.friend)
 
             } catch (error) {
                 console.log(error);
@@ -63,6 +69,7 @@ const profilepage = ({ textTheme }) => {
 
         getProfileStats();
     }, [user?.playerId]);
+
 
     return (
         <div className=''>
@@ -143,7 +150,7 @@ const profilepage = ({ textTheme }) => {
                         <div className='h-22 w-22 border-2  border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Crown className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Best Rank</div>
-                            <div className='text-3xl'>248</div>
+                            <div className='text-3xl'>{bestRank}</div>
                         </div>
                     </div>
                 </div>
@@ -152,14 +159,14 @@ const profilepage = ({ textTheme }) => {
                         <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><Award className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Achievements</div>
-                            <div className='text-3xl'>248</div>
+                            <div className='text-3xl'>Coming soon!</div>
                         </div>
                     </div>
                     <div className='flex gap-2 items-center'>
                         <div className='h-22 w-22 border-2 border-secondary-content bg-base-300 rounded-4xl flex justify-center items-center'><User className='h-8 w-8' /></div>
                         <div className='flex flex-col items-left'>
                             <div className='text-2xl font-light'>Friends</div>
-                            <div className='text-3xl'>248</div>
+                            <div className='text-3xl'>{friend}</div>
                         </div>
                     </div>
                 </div>
