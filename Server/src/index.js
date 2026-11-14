@@ -1,6 +1,5 @@
 import express from "express";
 import "dotenv/config";
-import path from "path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -14,14 +13,14 @@ import helpRouter from "./routes/helproute.js";
 import settingRouter from "./routes/settingroute.js";
 
 const app = express();
-const __dirname = path.resolve();
 
-app.use(
-    cors({
-        origin: "http://localhost:5173",
-        credentials: true,
-    })
-);
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        process.env.CLIENT_URL
+    ].filter(Boolean),
+    credentials: true
+}));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -33,17 +32,56 @@ app.use("/api/leaderboard", lbRouter);
 app.use("/api/help", helpRouter);
 app.use("/api/profile", settingRouter);
 
+import express from "express";
+import "dotenv/config";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "./Client/dist")));
-    // Need to fix for React Router
-    app.get("/", (req, res) => {
-        res.sendFile(path.join(__dirname, "./Client/dist/index.html"));
-    });
-}
+import connectDB from "./utils/db.js";
 
+import authRouter from "./routes/authroute.js";
+import profileRouter from "./routes/profileroute.js";
+import roomRouter from "./routes/roomRoute.js";
+import lbRouter from "./routes/lbroute.js";
+import helpRouter from "./routes/helproute.js";
+import settingRouter from "./routes/settingroute.js";
+
+const app = express();
+
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        process.env.CLIENT_URL
+    ].filter(Boolean),
+    credentials: true
+}));
+
+app.use(express.json());
+app.use(cookieParser());
+
+// Routes
+app.use("/api/auth", authRouter);
+app.use("/api/profile", profileRouter);
+app.use("/api/rooms", roomRouter);
+app.use("/api/leaderboard", lbRouter);
+app.use("/api/help", helpRouter);
+app.use("/api/profile", settingRouter);
+
+// Start server
 const PORT = process.env.PORT || 7000;
-app.listen(PORT, () => {
-    console.log("Server is running on PORT:" + PORT);
-    connectDB();
-});
+
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on PORT: ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1);
+    }
+};
+
+startServer();
