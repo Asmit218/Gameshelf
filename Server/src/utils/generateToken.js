@@ -6,13 +6,13 @@ export const generateToken = (userId, res) => {
     if (!JWT_SECRET) {
         throw new Error("JWT_SECRET is not defined in environment variables");
     }
-
-    const token = jwt.sign({ id: userId}, JWT_SECRET, {
-        expiresIn: '1d',
+    const token = jwt.sign({ id: userId }, JWT_SECRET, {
+        expiresIn: "1d",
     });
     res.cookie("jwt", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 };
