@@ -18,4 +18,6 @@ export const generateToken = (userId, res) => {
         secure: isProduction,
         sameSite: isProduction ? "none" : "lax",
     });
+
+    return token;
 };
