@@ -11,14 +11,15 @@ export default function ProfileDropdown({ user: propUser }) {
 
     const handleLogout = async () => {
         try {
-            const res = await api.post("/auth/logout");
+            await api.post("/auth/logout");
+        } catch (error) {
+            console.log(error);
+        } finally {
+            localStorage.removeItem("token");
             window.location.reload();
             navigate("/");
-        } catch (error) {
-            console.log(error)
         }
-
-    }
+    };
 
 
     return (
@@ -26,19 +27,19 @@ export default function ProfileDropdown({ user: propUser }) {
             <div tabIndex={0} role="button" className="avatar cursor-pointer">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
                     {user ?
-                        <img 
-                            src={user.profilePhoto || "/22.png"} 
-                            alt="profile" 
-                            className="w-full h-full object-cover" 
+                        <img
+                            src={user.profilePhoto || "/22.png"}
+                            alt="profile"
+                            className="w-full h-full object-cover"
                         />
                         :
-                        <img 
-                            src="/user.png" 
-                            alt="profile" 
-                            className="w-full h-full object-cover" 
+                        <img
+                            src="/user.png"
+                            alt="profile"
+                            className="w-full h-full object-cover"
                         />
                     }
-                    
+
                 </div>
             </div>
 

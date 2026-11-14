@@ -19,18 +19,18 @@ export default function Login() {
       const res = await api.post("/auth/login", {
         email,
         password,
+      });
+
+      if (res.data?.token) {
+        localStorage.setItem("token", res.data.token);
       }
-      );
 
-      const check = await api.get("/auth/check");
-
-    setUser(check.data);
-    navigate("/");
-
+      setUser(res.data);
+      navigate("/");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div className="flex flex-row h-screen justify-center items-center">
