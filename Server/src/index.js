@@ -14,12 +14,21 @@ const app = express();
 
 app.set("trust proxy", 1);
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.CLIENT_URL?.replace(/\/$/, "")
+].filter(Boolean);
+
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        process.env.CLIENT_URL?.replace(/\/$/, "")
-    ].filter(Boolean),
-    credentials: true
+    origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        if (origin.endsWith(".onrender.com")) return callback(null, true);
+        return callback(null, true);
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());

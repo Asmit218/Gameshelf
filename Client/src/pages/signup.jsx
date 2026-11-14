@@ -12,7 +12,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const {setUser} = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const handleSignup = async () => {
     try {
@@ -30,7 +30,8 @@ export default function Signup() {
       console.log("Signup success");
       navigate("/");
     } catch (error) {
-      console.error(error);
+      console.log("Signup error:", error.response?.data);
+      console.log("Status:", error.response?.status);
     }
   };
 
