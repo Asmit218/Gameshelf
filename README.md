@@ -6,6 +6,12 @@ Players can challenge others, wager in-platform points called **BIOS**, climb th
 
 ---
 
+## 🌐 Live Demo
+
+Check it out: [https://gameshelf-1.onrender.com/](https://gameshelf-1.onrender.com/)
+
+---
+
 ## Features
 
 - Play **mind and logic games** online
