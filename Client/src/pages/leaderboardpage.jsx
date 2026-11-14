@@ -109,22 +109,20 @@ export default function Leaderboardpage({ textTheme, user }) {
               <button
                 type="button"
                 onClick={() => setType("wins")}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${
-                  type === "wins"
-                    ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/25 scale-[1.02]"
-                    : "text-base-content/70 hover:text-base-content hover:bg-base-300/60"
-                }`}
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${type === "wins"
+                  ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/25 scale-[1.02]"
+                  : "text-base-content/70 hover:text-base-content hover:bg-base-300/60"
+                  }`}
               >
                 <Flame className="w-4 h-4" /> Matches Won
               </button>
               <button
                 type="button"
                 onClick={() => setType("bios")}
-                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${
-                  type === "bios"
-                    ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/25 scale-[1.02]"
-                    : "text-base-content/70 hover:text-base-content hover:bg-base-300/60"
-                }`}
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-xl font-black text-xs md:text-sm transition-all cursor-pointer ${type === "bios"
+                  ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/25 scale-[1.02]"
+                  : "text-base-content/70 hover:text-base-content hover:bg-base-300/60"
+                  }`}
               >
                 <Coins className="w-4 h-4" /> BIOS Balance
               </button>
@@ -190,7 +188,7 @@ export default function Leaderboardpage({ textTheme, user }) {
                     <h3 className="text-lg font-black truncate max-w-[200px]">
                       {top3[1].userName}
                     </h3>
-                    <div className="mt-3 py-1.5 px-4 rounded-xl bg-base-300/80 border border-base-content/10 flex items-center gap-2 text-sm font-black text-slate-200">
+                    <div className="mt-3 py-1.5 px-4 rounded-xl bg-base-300/80 border border-base-content/10 flex items-center gap-2 text-sm font-black text-base-content">
                       {type === "wins" ? (
                         <>
                           <Flame className="w-4 h-4 text-orange-400" /> {top3[1].wins} Wins
@@ -223,7 +221,7 @@ export default function Leaderboardpage({ textTheme, user }) {
                     <span className="text-xs font-black uppercase tracking-widest text-yellow-500 flex items-center gap-1 mb-1">
                       <Sparkles className="w-3.5 h-3.5" /> Champion • Rank #1
                     </span>
-                    <h3 className="text-2xl font-black text-white truncate max-w-[240px]">
+                    <h3 className="text-2xl font-black text-base-content truncate max-w-[240px]">
                       {top3[0].userName}
                     </h3>
                     <div className="mt-4 py-2 px-5 rounded-2xl bg-yellow-500 text-black flex items-center gap-2 text-base font-black shadow-lg shadow-yellow-500/30">
@@ -310,9 +308,8 @@ export default function Leaderboardpage({ textTheme, user }) {
                     <motion.div
                       key={player.playerId}
                       whileHover={{ backgroundColor: "rgba(255, 255, 255, 0.03)" }}
-                      className={`grid grid-cols-12 px-6 py-4 items-center transition-colors ${
-                        isMe ? "bg-yellow-500/10 border-l-4 border-yellow-500" : ""
-                      }`}
+                      className={`grid grid-cols-12 px-6 py-4 items-center transition-colors ${isMe ? "bg-yellow-500/10 border-l-4 border-yellow-500" : ""
+                        }`}
                     >
                       {/* Rank */}
                       <div className="col-span-2 md:col-span-1 flex justify-center">

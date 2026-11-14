@@ -4,9 +4,10 @@ import { AuthContext } from "../utils/AuthProvider";
 import { useContext } from "react";
 import api from "../utils/axios";
 
-export default function ProfileDropdown() {
+export default function ProfileDropdown({ user: propUser }) {
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    const { user: authUser } = useContext(AuthContext) || {};
+    const user = propUser || authUser;
 
     const handleLogout = async () => {
         try {
@@ -23,11 +24,19 @@ export default function ProfileDropdown() {
     return (
         <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="avatar cursor-pointer">
-                <div className="w-10 rounded-full">
+                <div className="w-10 h-10 rounded-full overflow-hidden">
                     {user ?
-                    <img src="22.png" alt="profile" />
-                    :
-                    <img src="user.png" alt="profile" />
+                        <img 
+                            src={user.profilePhoto || "/22.png"} 
+                            alt="profile" 
+                            className="w-full h-full object-cover" 
+                        />
+                        :
+                        <img 
+                            src="/user.png" 
+                            alt="profile" 
+                            className="w-full h-full object-cover" 
+                        />
                     }
                     
                 </div>

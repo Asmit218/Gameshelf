@@ -1,11 +1,68 @@
+import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
+
 export default function Footer() {
+    const [theme, setTheme] = useState(() => {
+        if (typeof window === "undefined") return "silk";
+        const saved = localStorage.getItem("theme");
+        if (saved) return saved;
+        const fromDoc = document.documentElement.getAttribute("data-theme");
+        if (fromDoc) return fromDoc;
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "halloween"
+            : "silk";
+    });
+
+    useEffect(() => {
+        const initial =
+            localStorage.getItem("theme") ||
+            document.documentElement.getAttribute("data-theme") ||
+            (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "halloween"
+                : "silk");
+
+        setTheme(initial);
+        document.documentElement.setAttribute("data-theme", initial);
+    }, []);
+
+    const toggleTheme = () => {
+        const nextTheme = theme === "halloween" ? "silk" : "halloween";
+        setTheme(nextTheme);
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
+    };
+
+    const isDark = theme === "halloween";
+
     return (
         <footer className="footer footer-horizontal footer-center bg-primary text-primary-content rounded p-10">
+            {/* Theme Toggle Button (Dark / Light) */}
             <nav className="grid grid-flow-col gap-4">
+                <div>
+                    <button
+                        type="button"
+                        onClick={toggleTheme}
+                        className="btn btn-sm rounded-full bg-primary-content text-primary hover:bg-primary-content/90 border-none flex items-center gap-2 shadow-md cursor-pointer transition-all active:scale-95"
+                        title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                    >
+                        {isDark ? (
+                            <>
+                                <Sun className="w-4 h-4 text-amber-500 fill-amber-500" />
+                                <span>Light Mode</span>
+                            </>
+                        ) : (
+                            <>
+                                <Moon className="w-4 h-4 text-indigo-600 fill-indigo-600" />
+                                <span>Dark Mode</span>
+                            </>
+                        )}
+                    </button>
+                </div>
                 <a className="link link-hover">About us</a>
                 <a className="link link-hover">Contact</a>
                 <a className="link link-hover">Jobs</a>
                 <a className="link link-hover">Press kit</a>
+
             </nav>
             <nav>
                 <div className="grid grid-flow-col gap-4">
@@ -42,12 +99,12 @@ export default function Footer() {
                                 d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
                         </svg>
                     </a>
+
                 </div>
             </nav>
             <aside>
                 <p>Copyright © {new Date().getFullYear()} - All right reserved by GAMESHELF</p>
             </aside>
         </footer>
-
     );
 }
