@@ -16,6 +16,8 @@ const profilepage = ({ textTheme }) => {
 
     const { user } = useContext(AuthContext);
 
+    const [profilePhoto, setProfilePhoto] = useState(user?.profilePhoto || "");
+    const [bgPhoto, setBgPhoto] = useState(user?.bgPhoto || "");
     const [match, setMatch] = useState(0);
     const [win, setWin] = useState(0);
     const [loss, setLoss] = useState(0);
@@ -24,13 +26,34 @@ const profilepage = ({ textTheme }) => {
     const [level, setLevel] = useState(0);
     const [xp, setXp] = useState(0);
     const [gameCount, setGameCount] = useState([]);
-    const [gameWin,setGameWin] = useState([]);
-    const [gameHistory,setGameHistory] = useState([]);
-    const [bestRank,setBestRank] = useState(0);
-    const [friend,setFriend] = useState(0);
+    const [gameWin, setGameWin] = useState([]);
+    const [gameHistory, setGameHistory] = useState([]);
+    const [bestRank, setBestRank] = useState(0);
+    const [friend, setFriend] = useState(0);
+
+    useEffect(() => {
+        if (user?.profilePhoto) setProfilePhoto(user.profilePhoto);
+        if (user?.bgPhoto) setBgPhoto(user.bgPhoto);
+    }, [user]);
 
     useEffect(() => {
         if (!user?.playerId) return;
+        const fetchImages = async () => {
+            try {
+                const res = await api.get(`/profile/photo/${user.playerId}`);
+
+                if (res.data?.profilePhoto) setProfilePhoto(res.data.profilePhoto);
+                if (res.data?.bgPhoto) setBgPhoto(res.data.bgPhoto);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchImages();
+    }, [user?.playerId]);
+
+    useEffect(() => {
 
         const getProfileStats = async () => {
             try {
@@ -58,7 +81,7 @@ const profilepage = ({ textTheme }) => {
                 setGameWin(winCount.data);
 
                 setGameHistory(history.data);
-                
+
                 setBestRank(other.data.bestRank);
                 setFriend(other.data.friend)
 
@@ -73,20 +96,20 @@ const profilepage = ({ textTheme }) => {
 
     return (
         <div className=''>
-            <img className='h-75 w-full object-cover' src='banner.jpg'></img>
+            <img className='h-75 w-full object-cover' src={bgPhoto || user?.bgPhoto || '/banner.jpg'} alt="Banner" />
             <div className="mx-25 my-5 absolute top-0 left-0">
                 <Navbar user={user} textTheme={textTheme} />
             </div>
 
             <div className='flex flex-col items-center mx-auto'>
                 <div className='flex flex-col w-60 items-center ml-10 mr-10'>
-                    <img className='absolute top-50 z-10 h-40 w-40' src='22.png'></img>
+                    <img className='absolute top-50 z-10 h-40 w-40 rounded-full object-cover' src={profilePhoto || user?.profilePhoto || '/22.png'} alt="Profile" />
                     <div className='font-bold uppercase text-3xl mt-15'>{user?.userName}</div>
                     <div className=' text-sm'>Uid : {user?.playerId}</div>
                 </div>
 
                 <div className='mb-10 mt-5 ml-10 mr-10'>
-                    <Chartlevel level={level} xp={xp}/>
+                    <Chartlevel level={level} xp={xp} />
                 </div>
             </div>
 
@@ -174,26 +197,26 @@ const profilepage = ({ textTheme }) => {
 
             <div className='mx-auto mb-20 border-secondary-content/60 bg-base-300 rounded-2xl border max-w-240'>
                 <div className=' pt-3 text-center text-xl font-bold'>GAMES PLAYED</div>
-                <div className=''><Chartbar1 gameCount={gameCount}/></div>
+                <div className=''><Chartbar1 gameCount={gameCount} /></div>
             </div>
 
             <div className='mx-auto mb-20 border-secondary-content/60 bg-base-300 rounded-2xl border max-w-240'>
                 <div className=' pt-3 text-center text-xl font-bold'>WIN LOSS COUNT</div>
-                <div className=''><Chartbar2 gameWin={gameWin}/></div>
+                <div className=''><Chartbar2 gameWin={gameWin} /></div>
             </div>
 
             <div className='mb-20 flex justify-center gap-20'>
                 <div className='w-80 p-3 border-secondary-content/60 bg-base-300 rounded-2xl border' >
-                    <Chartpie1 gameWin={gameWin}/>
+                    <Chartpie1 gameWin={gameWin} />
                 </div>
                 <div className='w-80 p-3 border-secondary-content/60 bg-base-300 rounded-2xl border' >
-                    <Chartpie2 gameCount={gameCount}/>
+                    <Chartpie2 gameCount={gameCount} />
                 </div>
             </div>
 
 
             <div className=' mb-15 max-w-350 mx-15 2xl:max-w-350 2xl:mx-auto'>
-                <Matchtable gameHistory={gameHistory}/>
+                <Matchtable gameHistory={gameHistory} />
             </div>
             <div>
                 <Footer />

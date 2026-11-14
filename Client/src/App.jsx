@@ -18,7 +18,7 @@ function App() {
 
   const [textTheme, setTextTheme] = useState("");
   const [loading, setLoading] = useState(true)
-  const {user,setUser} = useContext(AuthContext)
+  const { user, setUser } = useContext(AuthContext)
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -34,33 +34,43 @@ function App() {
       }
     };
     checkAuth();
-  },[]);
+  }, []);
 
 
   useEffect(() => {
-
     const media = window.matchMedia('(prefers-color-scheme: dark)');
 
     const applyTheme = () => {
+      const activeTheme =
+        document.documentElement.getAttribute("data-theme") ||
+        localStorage.getItem("theme") ||
+        (media.matches ? "halloween" : "silk");
+
+      const isDark = activeTheme === "halloween";
+
       let light, lighta, lightb, lightc;
-      if (media.matches) {
+      if (isDark) {
         light = "#1b1816";
         lighta = "#fbfcca";
         lightb = "#d7f3fe";
         lightc = "#ffd0a7";
         setTextTheme("text-white");
       } else {
-        light = "#f7f5f3";
-        lighta = "#760097";
-        lightb = "#626262";
-        lightc = "#458228";
+        light = "#f7f5f0";
+        lighta = "#f59e0b";
+        lightb = "#fbbf24";
+        lightc = "#cbd5e1";
         setTextTheme("text-black");
       }
 
-
       if (window.FinisherHeader) {
+        const headerEl = document.querySelector(".finisher-header");
+        if (headerEl) {
+          headerEl.innerHTML = "";
+        }
+
         new window.FinisherHeader({
-          "count": 100,
+          "count": 90,
           "size": {
             "min": 2,
             "max": 4,
@@ -84,7 +94,7 @@ function App() {
               lightc
             ]
           },
-          "blending": "overlay",
+          "blending": isDark ? "overlay" : "multiply",
           "opacity": {
             "center": 1,
             "edge": 1
@@ -95,29 +105,41 @@ function App() {
           ]
         });
       }
-    }
+    };
+
     applyTheme();
+
     media.addEventListener("change", applyTheme);
+
+    const observer = new MutationObserver(() => {
+      applyTheme();
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"]
+    });
+
     return () => {
       media.removeEventListener("change", applyTheme);
-    }
+      observer.disconnect();
+    };
   }, []);
 
 
   return (
     <>
       <div className="finisher-header -z-10 h-screen inset-0 fixed"></div>
-      <div>
+      <div className="text-base-content min-h-screen">
         <Routes>
-          <Route path="/" element={<Homepage/>} />
-          <Route path="/profile" element={<Profilepage/>} />
-          <Route path="/room" element={<Roompage/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/signup" element={<Signup/>} />
-          <Route path="/settings" element={<Setting/>} />
-          <Route path="/leaderboard" element={<Leaderboardpage/>} />
-          <Route path="/unravel" element={<Unravel/>} />
-          <Route path="/handkerchief" element={<Handkerchief/>} />
+          <Route path="/" element={<Homepage textTheme={textTheme} user={user} />} />
+          <Route path="/profile" element={<Profilepage textTheme={textTheme} user={user} />} />
+          <Route path="/room" element={<Roompage textTheme={textTheme} user={user} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/settings" element={<Setting textTheme={textTheme} />} />
+          <Route path="/leaderboard" element={<Leaderboardpage textTheme={textTheme} user={user} />} />
+          <Route path="/unravel" element={<Unravel />} />
+          <Route path="/handkerchief" element={<Handkerchief />} />
         </Routes>
       </div>
     </>

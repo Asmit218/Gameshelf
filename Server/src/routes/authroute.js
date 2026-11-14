@@ -16,6 +16,8 @@ authRouter.get("/check", protectRoute, (req, res) => {
         _id: req.user._id,
         playerId: req.user.playerId,
         userName: req.user.userName,
+        profilePhoto: req.user.profilePhoto,
+        bgPhoto: req.user.bgPhoto,
     });
 });
 

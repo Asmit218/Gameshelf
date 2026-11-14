@@ -78,7 +78,7 @@ export default function Homepage({ textTheme, user }) {
               <Sparkles className="w-4 h-4" /> Next-Gen Strategic Gaming Platform
             </div>
 
-            <h1 className="text-6xl md:text-9xl font-black tracking-tight leading-none">
+            <h1 className="text-6xl md:text-9xl font-black tracking-tight leading-none text-base-content">
               GAME<span className="text-yellow-500">SHELF</span>
             </h1>
 
@@ -127,11 +127,10 @@ export default function Homepage({ textTheme, user }) {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer ${
-                      activeTab === tab.id
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs md:text-sm font-bold transition-all cursor-pointer ${activeTab === tab.id
                         ? "bg-yellow-500 text-black shadow-md shadow-yellow-500/20"
                         : "text-base-content/70 hover:text-base-content hover:bg-base-300/50"
-                    }`}
+                      }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
                     {tab.label}

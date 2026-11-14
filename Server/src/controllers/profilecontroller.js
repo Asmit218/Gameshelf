@@ -1,6 +1,31 @@
 import Match from "../models/match.js";
 import User from "../models/user.js";
 
+//It will return the profilePhoto and bgPhoto to the frontend 
+
+export const photo = async (req, res) => {
+    try {
+        const playerId = req.params.playerId;
+        const user = await User.findOne({ playerId });
+        if (!user) {
+            return res.status(404).json({ message: "user not found" });
+        }
+        console.log("user found");
+        res.status(200).json({
+            profilePhoto: user.profilePhoto,
+            bgPhoto: user.bgPhoto
+        });
+
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Failed to fetch profile images"
+        });
+    }
+}
+
 //It will return the total games played , total wins and total loss of a player
 
 export const totalWinLoss = async (req, res) => {
@@ -107,18 +132,18 @@ export const matchHistory = async (req, res) => {
         }).sort({ createdAt: -1 });
         const history = await Promise.all(
             matches.map(async (match) => {
-            const opponent = match.player.find(p => p !== playerId);
-            const opponentUser = await User.findOne({ playerId: opponent });
-            const result = match.winner === playerId ? "Win" : "Loss";
-            return {
-                game: match.game,
-                bios: match.bios,
-                opponent: opponent,
-                opponentUser: opponentUser?.userName || "unknown",
-                result: result,
-                date: match.createdAt
-            }
-        }))
+                const opponent = match.player.find(p => p !== playerId);
+                const opponentUser = await User.findOne({ playerId: opponent });
+                const result = match.winner === playerId ? "Win" : "Loss";
+                return {
+                    game: match.game,
+                    bios: match.bios,
+                    opponent: opponent,
+                    opponentUser: opponentUser?.userName || "unknown",
+                    result: result,
+                    date: match.createdAt
+                }
+            }))
         res.status(200).json(history);
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -192,12 +217,12 @@ export const biosCount = async (req, res) => {
     }
 }
 
-export const otherStats = async(req,res) => {
+export const otherStats = async (req, res) => {
     try {
         const playerId = req.params.playerId;
-        const user = await User.findOne({playerId});
-        if(!user){
-            return res.status(404).json({message:"User not found"});
+        const user = await User.findOne({ playerId });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
         const friendCount = user.friends.length;
         res.status(200).json({
@@ -205,6 +230,6 @@ export const otherStats = async(req,res) => {
             friend: friendCount
         });
     } catch (error) {
-        res.status(500).json({message:error.message});
+        res.status(500).json({ message: error.message });
     }
 }

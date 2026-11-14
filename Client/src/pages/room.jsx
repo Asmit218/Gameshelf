@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "../components/footer"
 import FriendLog from "../components/FriendLog"
 import Navbar from "../components/Navbar"
 import RoomLog from "../components/RoomLog"
 import api from "../utils/axios";
 import Create from "../components/Room/create";
+import { AuthContext } from "../utils/AuthProvider";
 
 
-export default function Room({ textTheme, user }) {
+export default function Room({ textTheme }) {
 
+    const { user } = useContext(AuthContext);
     const [room, setRoom] = useState([]);
     const [myRoom, setMyRoom] = useState([]);
 
