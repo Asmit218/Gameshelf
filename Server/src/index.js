@@ -12,10 +12,12 @@ import settingRouter from "./routes/settingroute.js";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        process.env.CLIENT_URL
+        process.env.CLIENT_URL?.replace(/\/$/, "")
     ].filter(Boolean),
     credentials: true
 }));
