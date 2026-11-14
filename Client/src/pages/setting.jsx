@@ -1,7 +1,7 @@
 import { BadgeQuestionMark, House, Palette, PanelRightClose, User } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
-import Profile from './settingSubPage.jsx/profile.jsx';
-import Help from './settingSubPage.jsx/help.jsx';
+import Profile from './settingSubPage.jsx/Profile';
+import Help from './settingSubPage.jsx/Help';
 
 const SettingPage = ({ textTheme }) => {
   const [activePage, setActivePage] = useState(

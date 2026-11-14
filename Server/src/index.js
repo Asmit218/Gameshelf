@@ -46,8 +46,6 @@ import lbRouter from "./routes/lbroute.js";
 import helpRouter from "./routes/helproute.js";
 import settingRouter from "./routes/settingroute.js";
 
-const app = express();
-
 app.use(cors({
     origin: [
         "http://localhost:5173",
