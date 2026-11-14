@@ -16,25 +16,23 @@ export default function Signup() {
 
   const handleSignup = async () => {
     try {
-      const res = await api.post("/auth/signup",
-        {
-          userName,
-          email,
-          password,
-        }
-      );
+      const res = await api.post("/auth/signup", {
+        userName,
+        email,
+        password,
+      });
 
+      if (res.data?.token) {
+        localStorage.setItem("token", res.data.token);
+      }
 
-      const check = await api.get("auth/check");
-      setUser(check.data);
-      console.log("Signup success")
-      navigate("/")
-
+      setUser(res.data);
+      console.log("Signup success");
+      navigate("/");
     } catch (error) {
       console.error(error);
-
     }
-  }
+  };
 
   return (
     <div className="flex flex-row h-screen justify-center items-center">

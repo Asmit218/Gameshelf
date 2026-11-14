@@ -37,13 +37,16 @@ export const signup = async (req, res) => {
 
     if (newUser) {
       const savedUser = await newUser.save();
-      generateToken(savedUser._id, res);
+      const token = generateToken(savedUser._id, res);
 
       res.status(201).json({
         _id: savedUser._id,
         userName: savedUser.userName,
         email: savedUser.email,
-        profilePic: savedUser.profilePic,
+        playerId: savedUser.playerId,
+        profilePhoto: savedUser.profilePhoto,
+        bgPhoto: savedUser.bgPhoto,
+        token,
       });
     } else {
       res.status(400).json({ message: "Invalid user data" });
@@ -72,12 +75,16 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    generateToken(user._id, res);
+    const token = generateToken(user._id, res);
 
     res.status(200).json({
       _id: user._id,
-      fullName: user.fullName,
+      userName: user.userName,
       email: user.email,
+      playerId: user.playerId,
+      profilePhoto: user.profilePhoto,
+      bgPhoto: user.bgPhoto,
+      token,
     });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
